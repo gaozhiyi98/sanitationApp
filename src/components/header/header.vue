@@ -8,6 +8,7 @@ export default {};
 
 <style lang="scss" scoped>
 .headerBox {
+  z-index: 99999;
   height: 55px;
   width: 100%;
   position: fixed;

@@ -1,11 +1,11 @@
 <template>
-  <van-tabbar v-model="active" class="footerBox">
-    <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-    <van-tabbar-item icon="home-o">巡检平台</van-tabbar-item>
-    <van-tabbar-item icon="home-o">通讯录</van-tabbar-item>
-    <van-tabbar-item icon="home-o">质量安全</van-tabbar-item>
-    <van-tabbar-item icon="home-o">物料采购</van-tabbar-item>
-    <van-tabbar-item icon="home-o">更多</van-tabbar-item>
+  <van-tabbar v-model="active" class="footerBox" route>
+    <van-tabbar-item to="/" icon="home-o">首页</van-tabbar-item>
+    <van-tabbar-item to="/inspection" icon="photograph">巡检平台</van-tabbar-item>
+    <van-tabbar-item to="/addressbook" icon="manager">通讯录</van-tabbar-item>
+    <van-tabbar-item to="/quality" icon="diamond">质量安全</van-tabbar-item>
+    <van-tabbar-item to="/materials" icon="shopping-cart">物料采购</van-tabbar-item>
+    <van-tabbar-item to="/more" icon="weapp-nav">更多</van-tabbar-item>
   </van-tabbar>
 </template>
 
