@@ -1,25 +1,21 @@
 <template>
   <div>
     <Header title="我的"></Header>
+    
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from "../header/header.vue";
+import Footer from "../footer/footer.vue";
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
-  methods: {
-    test() {
-      this.$http.post("check/getName", { name: 123 }).then(res => {
-        console.log(res);
-      });
-    }
-  },
-  created() {
-    this.test();
-  }
+  methods: {},
+  created() {}
 };
 </script>
 

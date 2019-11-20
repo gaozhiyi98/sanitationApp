@@ -8,24 +8,32 @@
       left-icon
       right-icon="search"
     />
-    <van-row type="flex" justify="space-around" class="userlist" v-for="(item, i) in 50" :key="i">
-      <van-col span="4">
-        <van-icon name="user-o" />
-      </van-col>
-      <van-col span="7" class="user">商霞</van-col>
-      <van-col span="7" class="job">胜园项目部/路长</van-col>
-      <van-col span="8">
-        <van-icon name="phone-o" class="call" @click="calluser" />
-      </van-col>
-    </van-row>
+    <div style="margin-top:105px">
+      <van-row class="listitem" style v-for="(item, i) in 50" :key="i">
+        <van-col span="4" class="icon">
+          <van-icon name="user-o" />
+        </van-col>
+        <van-col span="12">
+          <div style="font-size:14px;color:#323232">高霞</div>
+          <div style="font-size:12px;color:#787878">胜园项目/部长</div>
+        </van-col>
+        <van-col span="4" offset="3" class="icon">
+          <van-icon name="phone-circle-o" @click="calluser" />
+        </van-col>
+      </van-row>
+    </div>
+
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from "../header/header.vue";
+import Footer from "../footer/footer.vue";
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
   data() {
     return {
@@ -57,21 +65,32 @@ export default {
   width: 100%;
   z-index: 999;
 }
-.userlist {
-  position: relative;
-  top: 50px;
-  height: 40px;
-  line-height: 40px;
-  border-bottom: 1px solid #ebedf0;
-  text-align: center;
-  .user {
-    font-size: 14px;
-  }
-  .job {
-    font-size: 12px;
-  }
-  .call {
-    padding-left: 60px;
+.listitem {
+  width: 100%;
+  height: 45px;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 5px 0;
+  .icon {
+    text-align: center;
+    line-height: 45px;
   }
 }
+
+// .userlist {
+//   position: relative;
+//   top: 50px;
+//   height: 40px;
+//   line-height: 40px;
+//   border-bottom: 1px solid #ebedf0;
+//   text-align: center;
+//   .user {
+//     font-size: 14px;
+//   }
+//   .job {
+//     font-size: 12px;
+//   }
+//   .call {
+//     padding-left: 60px;
+//   }
+// }
 </style>

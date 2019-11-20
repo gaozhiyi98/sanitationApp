@@ -11,7 +11,7 @@ Vue.prototype.$qs = qs
 import Axios from 'axios';
 // 请求拦截器
 Axios.interceptors.request.use((config) => {
-  console.log(config);
+  // console.log(config);
   if (config.method === 'post' && Axios.defaults.headers.post['Content-Type'] === 'multipart/form-data;') {
     return config
   }
@@ -30,8 +30,8 @@ Axios.interceptors.response.use(function (res) {
   return res.data
 });
 Vue.prototype.$http = Axios
-// Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
-Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
+Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
+// Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
 
 // 引入vant组件库
 import Vant from 'vant';

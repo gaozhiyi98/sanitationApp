@@ -27,13 +27,19 @@ export default {
     Header
   },
   data() {
-    return {};
+    return {
+      img: ""
+    };
   },
   methods: {
     addfile(file) {
+      this.img = file.content;
       this.$http.post("check/uploadImage", { file: file.content }).then(res => {
         console.log(res);
       });
+      console.log("-----");
+
+      console.log(this.img);
     }
   }
 };

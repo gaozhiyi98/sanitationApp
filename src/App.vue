@@ -3,18 +3,14 @@
     <transition>
       <router-view></router-view>
     </transition>
-    <Footer></Footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Footer from "./components/footer/footer.vue";
 
 @Component({
-  components: {
-    Footer
-  }
+  components: {}
 })
 export default class App extends Vue {}
 </script>
