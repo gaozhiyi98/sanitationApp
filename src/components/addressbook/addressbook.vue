@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header title="通讯录"></Header>
     <van-search
       class="van-hairline--bottom navsearch"
       v-model="searchmsg"
@@ -21,7 +22,11 @@
 </template>
 
 <script>
+import Header from "../header/header.vue";
 export default {
+  components: {
+    Header
+  },
   data() {
     return {
       searchmsg: ""

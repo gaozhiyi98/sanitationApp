@@ -1,5 +1,7 @@
 <template>
+  <!-- 质量安全 -->
   <div>
+    <Header title="质量安全" :back="true"></Header>
     <div>安全报警：</div>
     <van-row type="flex" justify="space-around" class="userlist" v-for="(item, i) in 50" :key="i">
       <van-col span="2">
@@ -15,7 +17,12 @@
 </template>
 
 <script>
-export default {};
+import Header from "../../header/header";
+export default {
+  components: {
+    Header
+  }
+};
 </script>
 
 <style lang="scss" scoped>

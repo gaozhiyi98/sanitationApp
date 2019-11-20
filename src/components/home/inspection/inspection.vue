@@ -1,27 +1,24 @@
 <template>
+  <!-- 巡检平台 -->
   <div>
-    <van-tabs v-model="active" color="#5677FC" swipeable>
-      <van-tab title="违规处理">
-        <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
-          <ul class="item">
-            <li v-for="(item, index) in images" :key="index">
-              <img :src="item" alt srcset />
-            </li>
-          </ul>
-        </vueSeamlessScroll>
-      </van-tab>
-      <van-tab title="道路监控">
-        <div>道路监控</div>
-      </van-tab>
-    </van-tabs>
+    <Header title="巡检平台" :back="true"></Header>
+    <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
+      <ul class="item">
+        <li v-for="(item, index) in images" :key="index">
+          <img :src="item" alt srcset />
+        </li>
+      </ul>
+    </vueSeamlessScroll>
   </div>
 </template>
 
 <script>
 import vueSeamlessScroll from "vue-seamless-scroll";
+import Header from "../../header/header.vue";
 export default {
   components: {
-    vueSeamlessScroll
+    vueSeamlessScroll,
+    Header
   },
   data() {
     return {

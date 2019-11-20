@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <Header></Header>
     <transition>
       <router-view></router-view>
     </transition>
@@ -10,12 +9,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Header from "./components/header/header.vue";
 import Footer from "./components/footer/footer.vue";
 
 @Component({
   components: {
-    Header,
     Footer
   }
 })

@@ -1,5 +1,7 @@
 <template>
+  <!-- 物料采购 -->
   <div>
+    <Header title="物料采购" :back="true"></Header>
     <div class="navtitle">
       物料采购：
       <van-button class="btn new" type="info">新建采购申请</van-button>
@@ -19,7 +21,11 @@
 </template>
 
 <script>
+import Header from "../../header/header.vue";
 export default {
+  components: {
+    Header
+  },
   data() {
     return {};
   },
