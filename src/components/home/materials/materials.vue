@@ -1,31 +1,35 @@
 <template>
   <!-- 物料采购 -->
   <div>
-    <Header title="物料采购" :back="true"></Header>
-    <div class="navtitle">
-      物料采购：
-      <van-button class="btn new" type="info">新建采购申请</van-button>
-      <van-uploader :after-read="addfile" capture="camera" />
+    <van-nav-bar class="headerBox" title="物料采购" left-arrow @click-left="goBack">
+      <van-button class="btn" type="info" slot="right">采购申请</van-button>
+    </van-nav-bar>
+    <div class="list">
+      <van-row class="item" style v-for="(item, i) in 50" :key="i">
+        <van-col span="9">
+          <div style="font-size:14px;color:#323232">蒋志强 辛店项目一部</div>
+          <div style="font-size:12px;color:#787878">办公用打印纸一盒</div>
+        </van-col>
+        <van-col span="5">
+          <div style="font-size:14px;color:#f66134">待审批</div>
+        </van-col>
+        <van-col span="10" class="icon">
+          <van-row type="flex" justify="space-around" class="btnbox">
+            <van-col span="12">
+              <van-button class="btn" round plain type="info">详情</van-button>
+            </van-col>
+            <van-col span="12">
+              <van-button class="btn" round type="info">处理</van-button>
+            </van-col>
+          </van-row>
+        </van-col>
+      </van-row>
     </div>
-    <van-row type="flex" justify="space-around" class="userlist" v-for="(item, i) in 50" :key="i">
-      <van-col span="2">
-        <van-icon name="user-o" />
-      </van-col>
-      <van-col span="14" class="user">商霞:4K投影仪/1个/300单价/300总价</van-col>
-      <van-col span="10">
-        <van-button class="btn" type="info" style="margin-right:5px;">详情</van-button>
-        <van-button class="btn" type="info">审批</van-button>
-      </van-col>
-    </van-row>
   </div>
 </template>
 
 <script>
-import Header from "../../header/header.vue";
 export default {
-  components: {
-    Header
-  },
   data() {
     return {
       img: ""
@@ -40,41 +44,57 @@ export default {
       console.log("-----");
 
       console.log(this.img);
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.navtitle {
-  padding-top: 5px;
-  padding-left: 5px;
-  position: relative;
-  .new {
-    position: absolute;
-    right: 22px;
-    width: 100px;
-    height: 25px;
-    line-height: 25px;
-    padding: 0;
+.van-nav-bar__title {
+  color: #fff;
+}
+.van-nav-bar .van-icon {
+  color: #fff;
+}
+.headerBox {
+  z-index: 99999;
+  height: 55px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #429af0;
+  text-align: center;
+  line-height: 55px;
+  font-size: 20px;
+  .btn {
+    height: 26px;
+    line-height: 26px;
+    background-color: #429af0;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
   }
 }
 
-.userlist {
-  height: 40px;
-  line-height: 40px;
-  border-bottom: 1px solid #ebedf0;
-  text-align: center;
-  .user {
-    font-size: 12px;
-  }
-  .btn {
-    width: 48px;
-    height: 22px;
-    font-size: 14px;
-    line-height: 14px;
-    padding: 0;
-    box-shadow: 0px 8px 4px #ccc;
+.list {
+  width: 100%;
+  .item {
+    height: 66px;
+    line-height: 32px;
+    border-bottom: 1px solid #d2d2d2;
+    padding-left: 10px;
+    .btnbox {
+      text-align: center;
+      margin-top: 20px;
+      .btn {
+        height: 30px;
+        line-height: 30px;
+      }
+    }
   }
 }
 </style>

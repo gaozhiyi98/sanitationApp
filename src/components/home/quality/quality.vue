@@ -2,6 +2,7 @@
   <!-- 质量安全 -->
   <div>
     <Header title="质量安全" :back="true"></Header>
+    <!-- 列表 -->
     <div class="list">
       <van-row class="item" style v-for="(item, i) in 50" :key="i">
         <van-col span="14">

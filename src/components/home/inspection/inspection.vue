@@ -2,24 +2,39 @@
   <!-- 巡检平台 -->
   <div>
     <Header title="巡检平台" :back="true"></Header>
+    <!-- 轮播图 -->
     <van-swipe
       :autoplay="3000"
       indicator-color="white"
-      style="height:190px;border-bottom: 5px solid #ccc;"
+      style="height:225px;border-bottom: 5px solid #ccc;"
     >
       <van-swipe-item v-for="(image, index) in images" :key="index">
         <img v-lazy="image" style="width:100%;height:100%" />
       </van-swipe-item>
     </van-swipe>
     <div class="scrolltitle">违规照片</div>
+
+    <!-- 横向滚动 -->
     <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
       <ul class="item">
         <li v-for="(item, index) in images" :key="index">
           <img :src="item" alt srcset />
-          <div>标题内容</div>
+          <div>2019-10-29 71:30:10</div>
+          <div>东营区北一路与井冈山路交界处</div>
         </li>
       </ul>
     </vueSeamlessScroll>
+    <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
+      <ul class="item">
+        <li v-for="(item, index) in images" :key="index">
+          <img :src="item" alt srcset />
+          <div>2019-10-29 71:30:10</div>
+          <div>东营区北一路与井冈山路交界处</div>
+        </li>
+      </ul>
+    </vueSeamlessScroll>
+
+    <!-- 上传按钮 -->
     <button class="addbtn" @click="showViolation">
       <van-icon name="photograph" />
       <div>拍照上传</div>
@@ -112,15 +127,19 @@ export default {
   padding-top: 5px;
   .item {
     display: flex;
-    height: 210px;
+    height: 225px;
     width: 100%;
+    overflow: hidden;
     li {
-      height: 100%;
+      height: 92%;
+      border: 1px solid #d2d2d2;
+      margin: 5px;
+      padding: 5px;
       img {
         display: flex;
         width: 240px;
-        height: 90%;
-        margin-right: 15px;
+        height: 80%;
+        // margin-right: 15px;
       }
     }
   }
