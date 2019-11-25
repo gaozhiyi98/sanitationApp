@@ -30,8 +30,8 @@ Axios.interceptors.response.use(function (res) {
   return res.data
 });
 Vue.prototype.$http = Axios
-Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
-// Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
+// Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
+Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
 
 // 引入vant组件库
 import Vant from 'vant';
@@ -44,6 +44,14 @@ Vue.use(Lazyload);
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
+
+// 引入百度地图
+import BaiduMap from 'vue-baidu-map'
+
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: 'ydPscWsaF9oqc1DOYtPgmCTmAUdqG4Cq'
+})
 
 Vue.config.productionTip = false;
 

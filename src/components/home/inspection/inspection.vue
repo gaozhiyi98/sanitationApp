@@ -1,7 +1,7 @@
 <template>
   <!-- 巡检平台 -->
   <div>
-    <Header title="巡检平台" :back="true"></Header>
+    <Header title="巡检平台" back></Header>
     <!-- 轮播图 -->
     <van-swipe
       :autoplay="3000"
@@ -14,64 +14,34 @@
     </van-swipe>
     <div class="scrolltitle">违规照片</div>
 
-    <!-- 横向滚动 -->
-    <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
-      <ul class="item">
-        <li v-for="(item, index) in images" :key="index">
-          <img :src="item" alt srcset />
-          <div>2019-10-29 71:30:10</div>
-          <div>东营区北一路与井冈山路交界处</div>
-        </li>
-      </ul>
-    </vueSeamlessScroll>
-    <vueSeamlessScroll :data="images" :class-option="defaultOption" class="seamless-warp">
-      <ul class="item">
-        <li v-for="(item, index) in images" :key="index">
-          <img :src="item" alt srcset />
-          <div>2019-10-29 71:30:10</div>
-          <div>东营区北一路与井冈山路交界处</div>
-        </li>
-      </ul>
-    </vueSeamlessScroll>
+    <!-- 图片列表 -->
+    <ul class="item">
+      <li v-for="(item, index) in images" :key="index">
+        <img :src="item" alt srcset />
+        <div class="van-ellipsis">2019-10-29 71:30:10</div>
+        <div class="van-ellipsis">东营区北一路与井冈山路交界处</div>
+      </li>
+    </ul>
+
+    <div class="footertext">没有更多内容了</div>
 
     <!-- 上传按钮 -->
-    <button class="addbtn" @click="showViolation">
+    <button class="addbtn" @click="goViolation">
       <van-icon name="photograph" />
       <div>拍照上传</div>
     </button>
-
-    <!-- 违规上传弹出层 -->
-    <el-dialog :visible.sync="violation.show" width="90%">
-      <van-uploader :after-read="onRead" style="left: 50%;transform: translateX(-50%);" />
-      <van-field v-model="violation.didian" label="违规地点" placeholder="请输入违规地点" />
-      <van-field v-model="violation.xiangqing" label="问题详情" placeholder="请输入问题详情" />
-      <van-row type="flex" justify="space-around" style="text-align: center;margin-top:20px;">
-        <van-col span="12">
-          <van-button round plain style="width:120px" type="info">取消</van-button>
-        </van-col>
-        <van-col span="12">
-          <van-button round style="width:120px" type="info">提交</van-button>
-        </van-col>
-      </van-row>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import vueSeamlessScroll from "vue-seamless-scroll";
 import Header from "../../header/header.vue";
 export default {
   components: {
-    vueSeamlessScroll,
     Header
   },
   data() {
     return {
-      images: [],
-      // 违规上传
-      violation: {
-        show: false
-      }
+      images: []
     };
   },
   methods: {
@@ -80,40 +50,17 @@ export default {
         this.images = res.data;
       });
     },
-    showViolation() {
-      console.log(this.violation.show);
-
-      this.violation.show = !this.violation.show;
-    },
-    onRead(file) {
-      console.log(file);
-      this.violation.imgfile = file.content;
-      this.$http.post("check/viewImage", this.violation).then(res => {
-        console.log(res);
-      });
-    },
     submitmsg() {
       console.log(this.data);
       this.$http.post("check/uploadImage", this.data).then(res => {
         console.log(res);
       });
+    },
+    goViolation() {
+      this.$router.push({ name: "inspectionAdd" });
     }
   },
-  computed: {
-    // 公告滚动自定义
-    defaultOption() {
-      return {
-        step: 0.2, // 数值越大速度滚动越快
-        limitMoveNum: 1, // 开始无缝滚动的数据量 this.dataList.length
-        hoverStop: true, // 是否开启鼠标悬停stop
-        direction: 3, // 0向下 1向上 2向左 3向右
-        openWatch: true, // 开启数据实时监控刷新dom
-        singleHeight: 0, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-        waitTime: 1000 // 单步运动停止的时间(默认值1000ms)
-      };
-    }
-  },
+  computed: {},
   created() {
     this.getSwipe();
   }
@@ -121,26 +68,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seamless-warp {
-  overflow: hidden;
+.item {
   width: 100%;
-  padding-top: 5px;
-  .item {
-    display: flex;
-    height: 225px;
-    width: 100%;
-    overflow: hidden;
-    li {
-      height: 92%;
-      border: 1px solid #d2d2d2;
-      margin: 5px;
-      padding: 5px;
-      img {
-        display: flex;
-        width: 240px;
-        height: 80%;
-        // margin-right: 15px;
-      }
+  overflow: hidden;
+  li {
+    float: left;
+    width: 44%;
+    border: 1px solid #d2d2d2;
+    margin: 5px;
+    padding: 5px;
+    img {
+      display: flex;
+      width: 100%;
     }
   }
 }
@@ -148,6 +87,7 @@ export default {
 .scrolltitle {
   height: 37px;
   line-height: 37px;
+  font-size: 14px;
   padding-left: 10px;
   border-bottom: 2px solid #ccc;
 }
@@ -194,5 +134,11 @@ export default {
     height: 178px;
     display: block;
   }
+}
+
+.footertext {
+  text-align: center;
+  margin: 10px 0;
+  color: #b4b4b4;
 }
 </style>

@@ -15,13 +15,16 @@ import { Component, Vue } from "vue-property-decorator";
 export default class App extends Vue {}
 </script>
 
-<style lang="scss">
+
+<style lang="scss" scoped>
 #app {
+  height: 100%;
+  font-size: 12px;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 55px;
-  margin-bottom: 48px;
 }
+
 </style>

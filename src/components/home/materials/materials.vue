@@ -1,9 +1,7 @@
 <template>
   <!-- 物料采购 -->
   <div>
-    <van-nav-bar class="headerBox" title="物料采购" left-arrow @click-left="goBack">
-      <van-button class="btn" type="info" slot="right">采购申请</van-button>
-    </van-nav-bar>
+    <Header class="headerBox" title="物料采购" back></Header>
     <div class="list">
       <van-row class="item" style v-for="(item, i) in 50" :key="i">
         <van-col span="9">
@@ -16,10 +14,10 @@
         <van-col span="10" class="icon">
           <van-row type="flex" justify="space-around" class="btnbox">
             <van-col span="12">
-              <van-button class="btn" round plain type="info">详情</van-button>
+              <van-button class="btn" round plain type="info" @click="goDetail(i)">详情</van-button>
             </van-col>
             <van-col span="12">
-              <van-button class="btn" round type="info">处理</van-button>
+              <van-button class="btn" round type="info" @click="process">处理</van-button>
             </van-col>
           </van-row>
         </van-col>
@@ -29,7 +27,11 @@
 </template>
 
 <script>
+import Header from "../../header/header.vue";
 export default {
+  components: {
+    Header
+  },
   data() {
     return {
       img: ""
@@ -45,8 +47,24 @@ export default {
 
       console.log(this.img);
     },
-    goBack() {
-      this.$router.go(-1);
+    process() {
+      this.$dialog
+        .confirm({
+          message: "是否同意该申请",
+          confirmButtonText: "同意",
+          cancelButtonText: "驳回",
+          cancelButtonColor: "#f66134",
+          closeOnClickOverlay: true
+        })
+        .then(() => {
+          console.log("同意申请");
+        })
+        .catch(() => {
+          console.log("驳回申请");
+        });
+    },
+    goDetail(id) {
+      this.$router.push({ name: "materialsDetail", params: { id } });
     }
   }
 };

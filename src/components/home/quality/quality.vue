@@ -1,7 +1,7 @@
 <template>
   <!-- 质量安全 -->
   <div>
-    <Header title="质量安全" :back="true"></Header>
+    <Header title="质量安全" back></Header>
     <!-- 列表 -->
     <div class="list">
       <van-row class="item" style v-for="(item, i) in 50" :key="i">
@@ -12,10 +12,10 @@
         <van-col span="10" class="icon">
           <van-row type="flex" justify="space-around" class="btnbox">
             <van-col span="12">
-              <van-button class="btn" round plain type="info">详情</van-button>
+              <van-button class="btn" round plain type="info" @click="goDetail(i)">详情</van-button>
             </van-col>
             <van-col span="12">
-              <van-button class="btn" round type="info">处理</van-button>
+              <van-button class="btn" round type="info" @click="goDeal(i)">处理</van-button>
             </van-col>
           </van-row>
         </van-col>
@@ -29,6 +29,14 @@ import Header from "../../header/header";
 export default {
   components: {
     Header
+  },
+  methods: {
+    goDetail(id) {
+      this.$router.push({ name: "qualityDetail", params: { id } });
+    },
+    goDeal(id) {
+      this.$router.push({ name: "qualityDeal", params: { id } });
+    }
   }
 };
 </script>

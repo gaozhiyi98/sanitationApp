@@ -8,7 +8,7 @@
       left-icon
       right-icon="search"
     />
-    <div style="margin-top:105px">
+    <div style="margin-top:105px;margin-bottom:48px">
       <van-row class="listitem" style v-for="(item, i) in 50" :key="i">
         <van-col span="4" class="icon">
           <van-icon name="user-o" />

@@ -1,13 +1,23 @@
 <template>
-  <van-nav-bar class="headerBox" :title="title" :left-arrow="back" @click-left="goBack" />
+  <van-nav-bar
+    class="headerBox"
+    :title="title"
+    :left-arrow="back"
+    :right-text="text"
+    @click-left="goBack"
+    @click-right="clickRight"
+  />
 </template>
 
 <script>
 export default {
-  props: ["title", "back"],
+  props: ["title", "back", "text"],
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    clickRight(value) {
+      this.$emit("clickRight", value);
     }
   }
 };
@@ -19,6 +29,14 @@ export default {
 }
 .van-nav-bar .van-icon {
   color: #fff;
+}
+.van-nav-bar__text {
+  margin-right: -5px;
+  height: 26px;
+  line-height: 26px;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 15px;
 }
 .headerBox {
   z-index: 99999;
