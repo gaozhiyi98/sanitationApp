@@ -70,7 +70,11 @@ const routes = [
       },
     ]
   },
-
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../components/login/login.vue'),
+  },
   {
     path: '/addressbook',
     name: 'addressbook',
@@ -94,7 +98,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });

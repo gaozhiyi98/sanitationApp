@@ -26,7 +26,7 @@
           <van-grid-item class="littlebox" v-for="(value, i) in 7" :key="i">
             <van-row style="width:100%">
               <van-col span="6">
-                <div class="leftarr" style="background-color: #ff5959;"></div>
+                <div class="leftarr"></div>
               </van-col>
               <van-col span="18">
                 <div class="littletitle">应出勤</div>
@@ -64,6 +64,7 @@ export default {
     height: 41px;
     margin-left: 10px;
     border-radius: 5px;
+    background-color: #ff5959;
   }
   .littlebox {
     height: 75px;

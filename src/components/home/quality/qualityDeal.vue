@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header title="质量安全处理" back text="提交"></Header>
-    <div class="content" style="border-bottom: 1px solid #d2d2d2;">
+    <div class="content">
       <div class="title">处理备注：</div>
       <van-cell-group>
         <van-field
@@ -44,6 +44,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   padding: 15px;
+  border-bottom: 1px solid #d2d2d2;
   .textarea {
     border: 1px solid #d2d2d2;
     border-radius: 5px;

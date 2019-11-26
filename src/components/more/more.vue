@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="user">
-      <van-image width="100" height="100" radius="50px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-      <div class="name">管理员</div>
-      <div class="tel">136****5689</div>
+      <van-image class="head" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <div class="name">{{ this.usermsg.param2 }}</div>
+      <div class="tel">{{ this.usermsg.username }}</div>
     </div>
     <div class="list">
       <van-row class="box">
         <van-col span="3">
           <van-image
-            height="41px"
+            class="img"
             src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
           />
         </van-col>
@@ -22,7 +22,7 @@
       <van-row class="box">
         <van-col span="3">
           <van-image
-            height="41px"
+            class="img"
             src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
           />
         </van-col>
@@ -35,7 +35,7 @@
       <van-row class="box">
         <van-col span="3">
           <van-image
-            height="41px"
+            class="img"
             src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
           />
         </van-col>
@@ -47,7 +47,7 @@
       </van-row>
     </div>
     <div class="btn">
-      <van-button round type="danger">退出登录</van-button>
+      <van-button round type="danger" @click="signOut">退出登录</van-button>
     </div>
     <Footer></Footer>
   </div>
@@ -63,11 +63,26 @@ export default {
   },
   data() {
     return {
-      socket: ""
+      socket: "",
+      usermsg: ""
     };
   },
-  methods: {},
-  created() {}
+  methods: {
+    signOut() {
+      localStorage.removeItem("usermsg");
+      this.$toast.success({
+        message: "退出成功",
+        duration: 1000
+      });
+      setTimeout(() => {
+        this.$router.push({ name: "login" });
+      }, 1000);
+    }
+  },
+  created() {
+    this.usermsg = JSON.parse(localStorage.getItem("usermsg"));
+    console.log(this.usermsg);
+  }
 };
 </script>
 
@@ -80,6 +95,11 @@ export default {
   text-align: center;
   background-color: #429af0;
   color: #fff;
+  .head {
+    width: 100px;
+    height: 100px;
+    border-radius: 10000px;
+  }
   .name {
     font-size: 18px;
     padding: 5px 0;
@@ -92,8 +112,11 @@ export default {
 
 .list {
   position: absolute;
-  top: 235px;
+  top: 227px;
   width: 100%;
+  .img {
+    height: 41px;
+  }
 }
 
 .btn {

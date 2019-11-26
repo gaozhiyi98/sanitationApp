@@ -3,13 +3,13 @@
   <div>
     <Header class="headerBox" title="物料采购" back></Header>
     <div class="list">
-      <van-row class="item" style v-for="(item, i) in 50" :key="i">
+      <van-row class="item" v-for="(item, i) in 50" :key="i">
         <van-col span="9">
-          <div style="font-size:14px;color:#323232">蒋志强 辛店项目一部</div>
-          <div style="font-size:12px;color:#787878">办公用打印纸一盒</div>
+          <div class="name">蒋志强 辛店项目一部</div>
+          <div class="detail">办公用打印纸一盒</div>
         </van-col>
         <van-col span="5">
-          <div style="font-size:14px;color:#f66134">待审批</div>
+          <div class="status">待审批</div>
         </van-col>
         <van-col span="10" class="icon">
           <van-row type="flex" justify="space-around" class="btnbox">
@@ -105,6 +105,19 @@ export default {
     line-height: 32px;
     border-bottom: 1px solid #d2d2d2;
     padding-left: 10px;
+    .name {
+      font-size: 14px;
+      color: #323232;
+    }
+    .detail {
+      font-size: 12px;
+      color: #787878;
+    }
+    .status {
+      padding-left: 5px;
+      font-size: 14px;
+      color: #f66134;
+    }
     .btnbox {
       text-align: center;
       margin-top: 20px;

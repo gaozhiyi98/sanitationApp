@@ -3,13 +3,9 @@
   <div>
     <Header title="巡检平台" back></Header>
     <!-- 轮播图 -->
-    <van-swipe
-      :autoplay="3000"
-      indicator-color="white"
-      style="height:225px;border-bottom: 5px solid #ccc;"
-    >
+    <van-swipe :autoplay="3000" indicator-color="white" class="swipe">
       <van-swipe-item v-for="(image, index) in images" :key="index">
-        <img v-lazy="image" style="width:100%;height:100%" />
+        <img v-lazy="image" />
       </van-swipe-item>
     </van-swipe>
     <div class="scrolltitle">违规照片</div>
@@ -68,12 +64,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.swipe {
+  height: 225px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  border-bottom: 5px solid #ccc;
+}
+
 .item {
   width: 100%;
   overflow: hidden;
   li {
+    box-sizing: border-box;
     float: left;
-    width: 44%;
+    width: 170px;
     border: 1px solid #d2d2d2;
     margin: 5px;
     padding: 5px;

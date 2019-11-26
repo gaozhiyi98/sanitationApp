@@ -1,11 +1,11 @@
 <template>
   <div>
     <Header title="违规上传" back text="提交"></Header>
-    <div class="content" style="border-bottom: 1px solid #d2d2d2;">
+    <div class="content">
       <div class="title">上传图片：</div>
       <van-uploader preview-size="173px" v-model="fileList" :max-count="1" :after-read="afterRead" />
     </div>
-    <div class="content" style="border-bottom: 1px solid #d2d2d2;">
+    <div class="content">
       <div class="title">违规地点：</div>
       <van-cell-group>
         <van-field v-model="value" placeholder="请输入当前位置">
@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 .content {
   padding: 15px;
-
+  border-bottom: 1px solid #d2d2d2;
   .textarea {
     border: 1px solid #d2d2d2;
     border-radius: 5px;

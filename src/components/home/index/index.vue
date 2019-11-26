@@ -1,44 +1,26 @@
 <template>
   <div>
     <Header title="智慧环卫综合管理平台" :back="false"></Header>
-    <van-grid :border="false" :column-num="2" style="border-bottom: 3px solid #ccc;">
+    <van-grid :border="false" :column-num="2" class="content">
       <van-grid-item to="/message">
-        <van-image
-          style="width:58px;height: 58px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />我的消息
+        <img class="navimg" src="@/assets/img/我的消息.png" />我的消息
       </van-grid-item>
       <van-grid-item to="/showdata">
-        <van-image
-          style="width:58px;height: 58px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />数据展示
+        <img class="navimg" src="@/assets/img/数据展示.png" />数据展示
       </van-grid-item>
     </van-grid>
     <van-grid :border="false" :column-num="4">
       <van-grid-item to="/monitor">
-        <van-image
-          style="width:37px;height: 33px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />道路监控
+        <img class="contentimg" src="@/assets/img/道路监控.png" />道路监控
       </van-grid-item>
       <van-grid-item to="/inspection">
-        <van-image
-          style="width:37px;height: 33px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />巡检平台
+        <img class="contentimg" src="@/assets/img/巡检平台.png" />巡检平台
       </van-grid-item>
       <van-grid-item to="/quality">
-        <van-image
-          style="width:37px;height: 33px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />质量安全
+        <img class="contentimg" src="@/assets/img/质量安全.png" />质量安全
       </van-grid-item>
       <van-grid-item to="/materials">
-        <van-image
-          style="width:37px;height: 33px;"
-          src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-        />物料采购
+        <img class="contentimg" src="@/assets/img/物料采购.png" />物料采购
       </van-grid-item>
     </van-grid>
     <Footer></Footer>
@@ -56,5 +38,17 @@ export default {
 };
 </script>
 
-<style>
+
+<style lang="scss" scoped>
+.content {
+  border-bottom: 3px solid #d2d2d2;
+}
+.navimg {
+  width: 58px;
+  height: 58px;
+}
+.contentimg {
+  width: 37px;
+  height: 33px;
+}
 </style>
