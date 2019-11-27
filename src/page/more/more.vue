@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import Header from "../header/header.vue";
-import Footer from "../footer/footer.vue";
+import Header from "@/components/header/header.vue";
+import Footer from "@/components/footer/footer.vue";
 export default {
   components: {
     Header,
@@ -99,6 +99,7 @@ export default {
     width: 100px;
     height: 100px;
     border-radius: 10000px;
+    overflow: hidden;
   }
   .name {
     font-size: 18px;

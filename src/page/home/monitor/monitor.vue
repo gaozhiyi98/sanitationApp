@@ -29,7 +29,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-import Header from "../../header/header.vue";
+import Header from "@/components/header/header.vue";
 import { BmlMarkerClusterer } from "vue-baidu-map";
 export default {
   components: {

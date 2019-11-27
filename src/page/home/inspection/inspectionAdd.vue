@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Header from "../../header/header";
+import Header from "@/components/header/header";
 import getCurrentCityName from "./test";
 export default {
   components: {

@@ -6,94 +6,94 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    component: () => import('../components/home/index.vue'),
+    component: () => import('../page/home/index.vue'),
     children: [
       {
         path: '',
         name: 'home',
-        component: () => import('../components/home/index/index.vue'),
+        component: () => import('../page/home/index/index.vue'),
       },
       {
         path: '/message',
         name: 'message',
-        component: () => import('../components/home/message/message.vue'),
+        component: () => import('../page/home/message/message.vue'),
       },
       {
         path: '/messageDetail',
         name: 'messageDetail',
-        component: () => import('../components/home/message/messageDetail.vue'),
+        component: () => import('../page/home/message/messageDetail.vue'),
       },
       {
         path: '/showdata',
         name: 'showdata',
-        component: () => import('../components/home/showdata/showdata.vue'),
+        component: () => import('../page/home/showdata/showdata.vue'),
       },
       {
         path: '/monitor',
         name: 'monitor',
-        component: () => import('../components/home/monitor/monitor.vue'),
+        component: () => import('../page/home/monitor/monitor.vue'),
       },
       {
         path: '/inspection',
         name: 'inspection',
-        component: () => import('../components/home/inspection/inspection.vue'),
+        component: () => import('../page/home/inspection/inspection.vue'),
       },
       {
         path: '/inspectionAdd',
         name: 'inspectionAdd',
-        component: () => import('../components/home/inspection/inspectionAdd.vue'),
+        component: () => import('../page/home/inspection/inspectionAdd.vue'),
       },
       {
         path: '/quality',
         name: 'quality',
-        component: () => import('../components/home/quality/quality.vue'),
+        component: () => import('../page/home/quality/quality.vue'),
       },
       {
         path: '/qualityDetail',
         name: 'qualityDetail',
-        component: () => import('../components/home/quality/qualityDetail.vue'),
+        component: () => import('../page/home/quality/qualityDetail.vue'),
       },
       {
         path: '/qualityDeal',
         name: 'qualityDeal',
-        component: () => import('../components/home/quality/qualityDeal.vue'),
+        component: () => import('../page/home/quality/qualityDeal.vue'),
       },
       {
         path: '/materials',
         name: 'materials',
-        component: () => import('../components/home/materials/materials.vue'),
+        component: () => import('../page/home/materials/materials.vue'),
       },
       {
         path: '/materialsDetail',
         name: 'materialsDetail',
-        component: () => import('../components/home/materials/materialsDetail.vue'),
+        component: () => import('../page/home/materials/materialsDetail.vue'),
       },
     ]
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('../components/login/login.vue'),
+    component: () => import('../page/login/login.vue'),
   },
   {
     path: '/addressbook',
     name: 'addressbook',
-    component: () => import('../components/addressbook/addressbook.vue'),
+    component: () => import('../page/addressbook/addressbook.vue'),
   },
   {
     path: '/more',
     name: 'more',
-    component: () => import('../components/more/more.vue'),
+    component: () => import('../page/more/more.vue'),
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import('../components/more/about.vue'),
+    component: () => import('../page/more/about.vue'),
   },
   {
     path: '/update',
     name: 'update',
-    component: () => import('../components/more/update.vue'),
+    component: () => import('../page/more/update.vue'),
   },
 ];
 
