@@ -1,5 +1,6 @@
 // vue.config.js
 module.exports = {
+  publicPath: './',
   /* config.module.rule('images').use('url-loader') */
   chainWebpack: config => {
     config.module

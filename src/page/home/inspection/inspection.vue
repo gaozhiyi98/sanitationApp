@@ -12,17 +12,21 @@
 
     <!-- 图片列表 -->
     <ul class="item">
-      <li v-for="(item, index) in images" :key="index">
-        <img :src="item" alt srcset />
-        <div class="van-ellipsis">2019-10-29 71:30:10</div>
-        <div class="van-ellipsis">东营区北一路与井冈山路交界处</div>
+      <li v-for="(item, index) in list" :key="index">
+        <img :src="item.pictureurl" @click="showimgPreview(item.pictureurl)" />
+        <div class="van-ellipsis">{{ item.param3 }}</div>
+        <div class="van-ellipsis">{{ item.param1 }}</div>
       </li>
     </ul>
 
     <div class="footertext">没有更多内容了</div>
 
+    <van-popup class="popup" v-model="showpopup">
+      <img :src="previewsrc"/>
+    </van-popup>
+
     <!-- 上传按钮 -->
-    <button class="addbtn" @click="goViolation">
+    <button class="addbtn" @click="goAdd">
       <van-icon name="photograph" />
       <div>拍照上传</div>
     </button>
@@ -37,7 +41,10 @@ export default {
   },
   data() {
     return {
-      images: []
+      images: [],
+      list: [],
+      showpopup: false,
+      previewsrc: ""
     };
   },
   methods: {
@@ -46,19 +53,29 @@ export default {
         this.images = res.data;
       });
     },
+    getList() {
+      this.$http.get("check/getPictureUrl").then(res => {
+        this.list = res.data;
+      });
+    },
     submitmsg() {
       console.log(this.data);
       this.$http.post("check/uploadImage", this.data).then(res => {
         console.log(res);
       });
     },
-    goViolation() {
+    goAdd() {
       this.$router.push({ name: "inspectionAdd" });
+    },
+    showimgPreview(src) {
+      this.previewsrc = src;
+      this.showpopup = !this.showpopup;
     }
   },
   computed: {},
   created() {
     this.getSwipe();
+    this.getList();
   }
 };
 </script>
@@ -146,5 +163,12 @@ export default {
   text-align: center;
   margin: 10px 0;
   color: #b4b4b4;
+}
+
+.popup {
+  img {
+    width: 326px;
+    height: 303px;
+  }
 }
 </style>

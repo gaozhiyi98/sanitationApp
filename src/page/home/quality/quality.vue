@@ -4,18 +4,25 @@
     <Header title="质量安全" back></Header>
     <!-- 列表 -->
     <div class="list">
-      <van-row class="item" v-for="(item, i) in 50" :key="i">
+      <van-row class="item" v-for="item in list" :key="item.sid">
         <van-col span="14">
-          <div class="name">2019-10-29 王芳 环卫工人</div>
-          <div class="detail">垃圾堆积未清扫</div>
+          <div class="name">{{ item.time }} {{ item.charge }} {{ item.job }}</div>
+          <div class="detail">{{ item.problemdesc }}</div>
         </van-col>
         <van-col span="10" class="icon">
           <van-row type="flex" justify="space-around" class="btnbox">
             <van-col span="12">
-              <van-button class="btn" round plain type="info" @click="goDetail(i)">详情</van-button>
+              <van-button class="btn" round plain type="info" @click="goDetail(item.sid)">详情</van-button>
             </van-col>
             <van-col span="12">
-              <van-button class="btn" round type="info" @click="goDeal(i)">处理</van-button>
+              <van-button
+                v-if="item.result === '未处理'"
+                class="btn"
+                round
+                type="info"
+                @click="goDeal(item.sid)"
+              >处理</van-button>
+              <van-button v-else disabled class="btn" round type="info">已处理</van-button>
             </van-col>
           </van-row>
         </van-col>
@@ -30,13 +37,28 @@ export default {
   components: {
     Header
   },
+  data() {
+    return {
+      list: []
+    };
+  },
   methods: {
-    goDetail(id) {
-      this.$router.push({ name: "qualityDetail", params: { id } });
+    // 详情跳转
+    goDetail(sid) {
+      this.$router.push({ name: "qualityDetail", params: { sid } });
     },
-    goDeal(id) {
-      this.$router.push({ name: "qualityDeal", params: { id } });
+    // 处理跳转
+    goDeal(sid) {
+      this.$router.push({ name: "qualityDeal", params: { sid } });
+    },
+    getList() {
+      this.$http.get("safeQuality/safeQualityCriteriaQuery").then(res => {
+        this.list = res.data;
+      });
     }
+  },
+  created() {
+    this.getList();
   }
 };
 </script>
@@ -61,6 +83,7 @@ export default {
       text-align: center;
       margin-top: 20px;
       .btn {
+        font-size: 12px;
         height: 30px;
         line-height: 30px;
       }

@@ -2,9 +2,9 @@
   <div>
     <Header title="消息详情" back></Header>
     <van-cell-group>
-      <van-cell title="岗位通知" value="2019-11-05" label="发送人：zs" />
+      <van-cell :title="msg.type" :value="msg.time" />
     </van-cell-group>
-    <div class="content">下雨路面易滑，注意安全</div>
+    <div class="content">{{ msg.message }}</div>
   </div>
 </template>
 
@@ -15,7 +15,24 @@ export default {
   components: {
     Header
   },
+  data() {
+    return {
+      msg: {}
+    };
+  },
+  methods: {
+    getDetail() {
+      this.$http
+        .post("systemAdvice/getSystemAdviceBySid", {
+          sid: this.$route.params.id
+        })
+        .then(res => {
+          this.msg = res.data;
+        });
+    }
+  },
   created() {
+    this.getDetail();
     console.log(this.$route.params.id);
   }
 };

@@ -3,18 +3,29 @@
   <div>
     <Header class="headerBox" title="物料采购" back></Header>
     <div class="list">
-      <van-row class="item" v-for="(item, i) in 50" :key="i">
+      <van-row class="item" v-for="item in list" :key="item.sid">
         <van-col span="9">
-          <div class="name">蒋志强 辛店项目一部</div>
-          <div class="detail">办公用打印纸一盒</div>
+          <div class="name">{{ item.applicantperson }} {{ item.applicantdepart }}</div>
+          <div class="detail">{{ item.materielname }}</div>
         </van-col>
         <van-col span="5">
-          <div class="status">待审批</div>
+          <div class="status" style="color: #f66134;" v-if="item.applicantstatus === '待审批'">
+            <img src="@/assets/img/待审批.png" />
+            {{ item.applicantstatus }}
+          </div>
+          <div class="status" style="color: #4eb14e" v-else-if="item.applicantstatus === '已审批'">
+            <img src="@/assets/img/已审批.png" />
+            {{ item.applicantstatus }}
+          </div>
+          <div class="status" style="color: #ffb533" v-else>
+            <img src="@/assets/img/驳回.png" />
+            {{ item.applicantstatus }}
+          </div>
         </van-col>
         <van-col span="10" class="icon">
           <van-row type="flex" justify="space-around" class="btnbox">
             <van-col span="12">
-              <van-button class="btn" round plain type="info" @click="goDetail(i)">详情</van-button>
+              <van-button class="btn" round plain type="info" @click="goDetail(item.sid)">详情</van-button>
             </van-col>
             <van-col span="12">
               <van-button class="btn" round type="info" @click="process">处理</van-button>
@@ -34,18 +45,16 @@ export default {
   },
   data() {
     return {
-      img: ""
+      list: []
     };
   },
   methods: {
-    addfile(file) {
-      this.img = file.content;
-      this.$http.post("check/uploadImage", { file: file.content }).then(res => {
-        console.log(res);
-      });
-      console.log("-----");
+    getList() {
+      this.$http.get("appMateriel/getAllAppMaterielInformation").then(res => {
+        console.log(res.data);
 
-      console.log(this.img);
+        this.list = res.data;
+      });
     },
     process() {
       this.$dialog
@@ -63,9 +72,12 @@ export default {
           console.log("驳回申请");
         });
     },
-    goDetail(id) {
-      this.$router.push({ name: "materialsDetail", params: { id } });
+    goDetail(sid) {
+      this.$router.push({ name: "materialsDetail", params: { sid } });
     }
+  },
+  created() {
+    this.getList();
   }
 };
 </script>
@@ -116,7 +128,11 @@ export default {
     .status {
       padding-left: 5px;
       font-size: 14px;
-      color: #f66134;
+
+      img {
+        width: 12px;
+        height: 12px;
+      }
     }
     .btnbox {
       text-align: center;

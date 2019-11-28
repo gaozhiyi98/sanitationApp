@@ -5,16 +5,14 @@
       <div class="onebox">
         <div class="title">当日考勤统计</div>
         <van-grid :column-num="3">
-          <van-grid-item class="littlebox" v-for="value in 7" :key="value">
+          <van-grid-item class="littlebox" v-for="(item, i) in msg.day" :key="i">
             <van-row style="width:100%">
-              <van-col span="6">
-                <van-image
-                  src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-                />
+              <van-col span="6" class="img">
+                <van-image :src="item.pictureUrl" />
               </van-col>
-              <van-col span="18">
-                <div class="littledata">50</div>
-                <div class="littletitle">应出勤</div>
+              <van-col span="18" class="text">
+                <div class="littledata">{{ item.number }}</div>
+                <div class="littletitle">{{ item.state }}</div>
               </van-col>
             </van-row>
           </van-grid-item>
@@ -23,14 +21,14 @@
       <div>
         <div class="title">工作预警</div>
         <van-grid :column-num="3">
-          <van-grid-item class="littlebox" v-for="(value, i) in 7" :key="i">
+          <van-grid-item class="littlebox" v-for="(item, i) in msg.warning" :key="i">
             <van-row style="width:100%">
               <van-col span="6">
-                <div class="leftarr"></div>
+                <div class="leftarr" :style="{'background-color': item.colour}"></div>
               </van-col>
               <van-col span="18">
-                <div class="littletitle">应出勤</div>
-                <div class="littledata">50</div>
+                <div class="littletitle">{{ item.state }}</div>
+                <div class="littledata">{{ item.number }}</div>
               </van-col>
             </van-row>
           </van-grid-item>
@@ -46,6 +44,29 @@ import Header from "@/components/header/header.vue";
 export default {
   components: {
     Header
+  },
+  data() {
+    return {
+      msg: {
+        day: {},
+        warning: {}
+      }
+    };
+  },
+  methods: {
+    getDay() {
+      this.$http.get("check/getDataTotal").then(res => {
+        console.log(res.data);
+        this.msg.day = res.data;
+      });
+      this.$http.get("check/getWarningTotal").then(res => {
+        console.log(res.data);
+        this.msg.warning = res.data;
+      });
+    }
+  },
+  created() {
+    this.getDay();
   }
 };
 </script>
@@ -64,13 +85,18 @@ export default {
     height: 41px;
     margin-left: 10px;
     border-radius: 5px;
-    background-color: #ff5959;
   }
   .littlebox {
     height: 75px;
     .littledata {
       font-size: 24px;
       color: #323232;
+    }
+    .img {
+      margin-top: 5px;
+    }
+    .text {
+      padding-left: 10px;
     }
   }
 }

@@ -1,17 +1,14 @@
 <template>
   <div>
     <div class="user">
-      <van-image class="head" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <img class="head" src="@/assets/img/默认头像.png" />
       <div class="name">{{ this.usermsg.param2 }}</div>
       <div class="tel">{{ this.usermsg.username }}</div>
     </div>
     <div class="list">
       <van-row class="box">
-        <van-col span="3">
-          <van-image
-            class="img"
-            src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-          />
+        <van-col style="text-align: center;" span="3">
+          <img class="img" src="@/assets/img/关于平台.png" />
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -20,11 +17,8 @@
         </van-col>
       </van-row>
       <van-row class="box">
-        <van-col span="3">
-          <van-image
-            class="img"
-            src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-          />
+        <van-col style="text-align: center;" span="3">
+          <img class="img" src="@/assets/img/检测更新.png" />
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -32,12 +26,9 @@
           </van-cell-group>
         </van-col>
       </van-row>
-      <van-row class="box">
-        <van-col span="3">
-          <van-image
-            class="img"
-            src="http://118.31.245.183:10555/app/d095f2ce4b631bfaa3e08b1f5bf5a7a.png"
-          />
+      <van-row class="box" @click="clean">
+        <van-col style="text-align: center;" span="3">
+          <img class="img" src="@/assets/img/清理缓存.png" />
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -77,6 +68,22 @@ export default {
       setTimeout(() => {
         this.$router.push({ name: "login" });
       }, 1000);
+    },
+    clean() {
+      this.$dialog
+        .confirm({
+          closeOnClickOverlay: true,
+          message: "是否清除缓存"
+        })
+        .then(() => {
+          this.$toast.success({
+            message: "清除成功",
+            duration: 1000
+          });
+          setTimeout(() => {
+            this.$router.push({ name: "home" });
+          }, 1000);
+        });
     }
   },
   created() {
@@ -115,8 +122,14 @@ export default {
   position: absolute;
   top: 227px;
   width: 100%;
-  .img {
-    height: 41px;
+  .box {
+    border-bottom: 1px solid #d2d2d2;
+
+    .img {
+      margin-top: 13px;
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 

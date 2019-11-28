@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="质量安全处理" back text="提交"></Header>
+    <Header title="质量安全处理" back text="提交" @clickRight="submit"></Header>
     <div class="content">
       <div class="title">处理备注：</div>
       <van-cell-group>
@@ -8,7 +8,7 @@
           class="textarea"
           type="textarea"
           :autosize="{maxHeight: 200, minHeight: 200}"
-          v-model="value"
+          v-model="msg.param1"
           placeholder="请输入处理备注"
         />
       </van-cell-group>
@@ -28,15 +28,37 @@ export default {
   },
   data() {
     return {
-      value: "",
+      msg: {
+        sid: 1,
+        param1: "",
+        imgfile: ""
+      },
       fileList: []
     };
   },
   methods: {
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
-      console.log(file);
+      this.msg.imgfile = file.content;
+    },
+    submit() {
+      this.$http
+        .post("appSafeQuality/uploadProblemPicture", this.msg)
+        .then(res => {
+          // if (res.status === 1) {
+          this.$toast.success({
+            message: "处理成功",
+            duration: 1000
+          });
+          setTimeout(() => {
+            this.$router.go(-1);
+          }, 1000);
+          // }
+        });
     }
+  },
+  created() {
+    this.msg.sid = this.$route.params.sid;
   }
 };
 </script>

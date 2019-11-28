@@ -9,16 +9,16 @@
       right-icon="search"
     />
     <div class="content">
-      <van-row class="listitem" style v-for="(item, i) in 50" :key="i">
+      <van-row class="listitem" style v-for="item in list" :key="item.sid">
         <van-col span="4" class="icon">
           <img class="img" src="@/assets/img/默认头像.png" alt />
         </van-col>
         <van-col span="12">
-          <div class="name">高霞</div>
-          <div class="job">胜园项目/部长</div>
+          <div class="name">{{ item.name }}</div>
+          <div class="job">{{ item.job }}</div>
         </van-col>
         <van-col span="4" offset="3" class="icon">
-          <img class="img" src="@/assets/img/电话.png" alt @click="calluser" />
+          <img class="img" src="@/assets/img/电话.png" alt @click="calluser(item.tel)" />
         </van-col>
       </van-row>
     </div>
@@ -37,23 +37,30 @@ export default {
   },
   data() {
     return {
-      searchmsg: ""
+      searchmsg: "",
+      list: []
     };
   },
   methods: {
-    calluser() {
+    calluser(tel) {
+      console.log(tel);
       this.$dialog
         .confirm({
-          title: "一键呼叫",
+          closeOnClickOverlay: true,
           message: "是否呼叫该用户"
         })
         .then(() => {
-          window.location.href = "tel://" + 18771569272;
-        })
-        .catch(() => {
-          // on cancel
+          window.location.href = "tel:" + tel;
         });
+    },
+    getList() {
+      this.$http.get("check/getPhoneCriteriaQuery").then(res => {
+        this.list = res.data;
+      });
     }
+  },
+  created() {
+    this.getList();
   }
 };
 </script>
