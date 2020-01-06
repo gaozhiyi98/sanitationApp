@@ -4,35 +4,32 @@
     <div class="content">
       <div class="onebox">
         <div class="title">当日考勤统计</div>
-        <van-grid :column-num="3">
-          <van-grid-item class="littlebox" v-for="(item, i) in msg.day" :key="i">
-            <van-row style="width:100%">
-              <van-col span="6" class="img">
-                <van-image :src="item.pictureUrl" />
-              </van-col>
-              <van-col span="18" class="text">
-                <div class="littledata">{{ item.number }}</div>
-                <div class="littletitle">{{ item.state }}</div>
-              </van-col>
+        <div class="sum">
+          <div class="num">123</div>
+          <div class="text">应出勤</div>
+        </div>
+        <van-grid class="bgi" :column-num="3" :border="false">
+          <van-grid-item class="top" v-for="(item, i) in msg.day" :key="i">
+            <van-row>
+              <div class="littledata">{{ item.number }}</div>
+              <div class="littletitle">{{ item.state }}</div>
             </van-row>
           </van-grid-item>
         </van-grid>
       </div>
       <div>
         <div class="title">工作预警</div>
-        <van-grid :column-num="3">
-          <van-grid-item class="littlebox" v-for="(item, i) in msg.warning" :key="i">
-            <van-row style="width:100%">
-              <van-col span="6">
-                <div class="leftarr" :style="{'background-color': item.colour}"></div>
-              </van-col>
-              <van-col span="18">
-                <div class="littletitle">{{ item.state }}</div>
-                <div class="littledata">{{ item.number }}</div>
-              </van-col>
-            </van-row>
-          </van-grid-item>
-        </van-grid>
+        <div class="bottom" v-for="(item, i) in msg.warning" :key="i">
+          <van-row>
+            <van-col span="2" style="text-align: center;">
+              <svg class="icon" aria-hidden="true">
+                <use :xlink:href="'#icondata_' + item.colour" />
+              </svg>
+            </van-col>
+            <van-col span="17">{{ item.state }}</van-col>
+            <van-col span="5" class="num">{{ item.number }}</van-col>
+          </van-row>
+        </div>
       </div>
     </div>
   </div>
@@ -73,30 +70,58 @@ export default {
 
 <style lang="scss" scoped>
 .content {
+  background-color: #f5f7fa;
+  padding: 5px;
   .title {
     height: 53px;
     line-height: 53px;
-    padding-left: 15px;
     font-size: 18px;
-    border-bottom: 1px solid #ccc;
   }
-  .leftarr {
-    width: 4px;
-    height: 41px;
-    margin-left: 10px;
-    border-radius: 5px;
-  }
-  .littlebox {
+  .sum {
+    position: absolute;
+    width: 75px;
     height: 75px;
-    .littledata {
-      font-size: 24px;
-      color: #323232;
-    }
-    .img {
-      margin-top: 5px;
+    left: 50%;
+    transform: translate(-50%);
+    background-image: url("../../../assets/image/data_bg2.png");
+    background-size: cover;
+    text-align: center;
+    .num {
+      line-height: 36px;
+      font-size: 16px;
+      font-weight: bold;
+      color: rgba(51, 51, 51, 1);
     }
     .text {
-      padding-left: 10px;
+      font-size: 12px;
+    }
+  }
+  .bgi {
+    margin-top: 30px;
+    padding-top: 25px;
+    background-image: url("../../../assets/image/data_bg.png");
+    background-size: cover;
+    border-radius: 8px;
+  }
+  .top {
+    height: 75px;
+    width: 160px;
+    text-align: center;
+    .littledata {
+      font-size: 24px;
+    }
+  }
+  .bottom {
+    display: inline-block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    .num {
+      text-align: right;
+      padding-right: 15px;
     }
   }
 }

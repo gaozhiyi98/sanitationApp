@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="质量安全处理" back text="提交" @clickRight="submit"></Header>
+    <Header title="质量安全处理" back></Header>
     <div class="content">
       <div class="title">处理备注：</div>
       <van-cell-group>
@@ -15,8 +15,10 @@
     </div>
     <div class="content">
       <div class="title">上传图片：</div>
-      <van-uploader preview-size="345px" v-model="fileList" :max-count="1" :after-read="afterRead" />
+      <van-uploader preview-size="100%" v-model="fileList" :max-count="1" :after-read="afterRead" />
     </div>
+
+    <van-button class="btn" type="info" size="large" @click="submit">提交</van-button>
   </div>
 </template>
 
@@ -42,19 +44,23 @@ export default {
       this.msg.imgfile = file.content;
     },
     submit() {
-      this.$http
-        .post("appSafeQuality/uploadProblemPicture", this.msg)
-        .then(res => {
-          // if (res.status === 1) {
-          this.$toast.success({
-            message: "处理成功",
-            duration: 1000
+      if (this.msg.param1 != "" && this.msg.imgfile != "") {
+        this.$http
+          .post("appSafeQuality/uploadProblemPicture", this.msg)
+          .then(res => {
+            if (res.status === 1) {
+              this.$toast.success({
+                message: "处理成功",
+                duration: 1000
+              });
+              setTimeout(() => {
+                this.$router.go(-1);
+              }, 1000);
+            }
           });
-          setTimeout(() => {
-            this.$router.go(-1);
-          }, 1000);
-          // }
-        });
+      } else {
+        this.$toast.fail("请补全处理信息");
+      }
     }
   },
   created() {
@@ -66,8 +72,9 @@ export default {
 <style lang="scss" scoped>
 .content {
   padding: 15px;
-  border-bottom: 1px solid #d2d2d2;
   .textarea {
+    width: 335px;
+    height: 188px;
     border: 1px solid #d2d2d2;
     border-radius: 5px;
   }
@@ -75,5 +82,14 @@ export default {
     font-size: 14px;
     margin-bottom: 15px;
   }
+  .van-uploader {
+    width: 335px;
+    height: 188px;
+  }
+}
+
+.btn {
+  position: fixed;
+  bottom: 0;
 }
 </style>

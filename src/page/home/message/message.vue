@@ -18,6 +18,7 @@
           </van-cell-group>
         </van-col>
       </van-row>
+      <div class="footbox" v-if="list.length === 0">暂无消息</div>
     </div>
   </div>
 </template>
@@ -36,8 +37,8 @@ export default {
   },
   methods: {
     getList() {
-      const name = "张三";
-      // const name = JSON.parse(localStorage.getItem("usermsg")).param2;
+      // const name = "张三";
+      const name = JSON.parse(localStorage.getItem("usermsg")).param3;
       this.$http.post("appAdvice/getAppAdviceList", { name }).then(res => {
         this.list = res.data;
       });
@@ -71,6 +72,12 @@ export default {
       width: 26px;
       height: 26px;
     }
+  }
+  .footbox {
+    height: 40px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 40px;
   }
 }
 </style>

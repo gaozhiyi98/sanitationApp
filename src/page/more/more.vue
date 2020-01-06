@@ -1,14 +1,22 @@
 <template>
   <div>
+    <div class="bgi"></div>
+
+    <div class="logout">
+      <span class="iconfont iconmy_icon_exit1" @click="signOut"></span>
+    </div>
+
     <div class="user">
       <img class="head" src="@/assets/img/默认头像.png" />
-      <div class="name">{{ this.usermsg.param2 }}</div>
+      <div class="name">{{ this.usermsg.param3 }}</div>
       <div class="tel">{{ this.usermsg.username }}</div>
     </div>
     <div class="list">
       <van-row class="box">
         <van-col style="text-align: center;" span="3">
-          <img class="img" src="@/assets/img/关于平台.png" />
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconmy_icon_about1" />
+          </svg>
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -18,7 +26,9 @@
       </van-row>
       <van-row class="box">
         <van-col style="text-align: center;" span="3">
-          <img class="img" src="@/assets/img/检测更新.png" />
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconmy_icon_update" />
+          </svg>
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -28,7 +38,9 @@
       </van-row>
       <van-row class="box" @click="clean">
         <van-col style="text-align: center;" span="3">
-          <img class="img" src="@/assets/img/清理缓存.png" />
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#iconmy_icon_cache" />
+          </svg>
         </van-col>
         <van-col span="21">
           <van-cell-group>
@@ -36,9 +48,6 @@
           </van-cell-group>
         </van-col>
       </van-row>
-    </div>
-    <div class="btn">
-      <van-button round type="danger" @click="signOut">退出登录</van-button>
     </div>
     <Footer></Footer>
   </div>
@@ -94,17 +103,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user {
+.bgi {
   position: absolute;
   top: 0;
+  width: 100%;
+  height: 218px;
+  background-image: url("../../assets/image/my_bg.png");
+  background-size: cover;
+}
+
+.logout {
+  position: fixed;
+  right: 25px;
+  top: 25px;
+  color: #fff;
+}
+
+.user {
+  position: absolute;
+  top: 150px;
   padding: 30px 0;
   width: 100%;
   text-align: center;
-  background-color: #429af0;
-  color: #fff;
   .head {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 10000px;
     overflow: hidden;
   }
@@ -113,33 +136,23 @@ export default {
     padding: 5px 0;
   }
   .tel {
-    font-size: 14px;
+    font-size: 13px;
     padding: 5px 0;
+    color: #666;
   }
 }
 
 .list {
   position: absolute;
-  top: 227px;
+  top: 330px;
   width: 100%;
   .box {
     border-bottom: 1px solid #d2d2d2;
-
-    .img {
-      margin-top: 13px;
-      width: 24px;
-      height: 24px;
+    .icon {
+      margin-top: 10px;
+      font-size: 25px;
+      margin-left: 15px;
     }
-  }
-}
-
-.btn {
-  position: fixed;
-  bottom: 60px;
-  width: 100%;
-  text-align: center;
-  button {
-    width: 250px;
   }
 }
 </style>

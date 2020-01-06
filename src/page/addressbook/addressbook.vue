@@ -10,15 +10,15 @@
     />
     <div class="content">
       <van-row class="listitem" style v-for="item in list" :key="item.sid">
-        <van-col span="4" class="icon">
-          <img class="img" src="@/assets/img/默认头像.png" alt />
+        <van-col span="3" class="imgicon">
+          <img class="img" src="@/assets/image/phone_icon_head.png" alt />
         </van-col>
-        <van-col span="12">
+        <van-col span="13">
           <div class="name">{{ item.name }}</div>
           <div class="job">{{ item.job }}</div>
         </van-col>
-        <van-col span="4" offset="3" class="icon">
-          <img class="img" src="@/assets/img/电话.png" alt @click="calluser(item.tel)" />
+        <van-col span="4" offset="3" class="imgicon">
+          <img class="img" src="@/assets/image/phone_icon_call.png" alt @click="calluser(item.tel)" />
         </van-col>
       </van-row>
     </div>
@@ -71,6 +71,7 @@ export default {
   top: 50px;
   width: 100%;
   z-index: 999;
+  border-radius: 5px;
 }
 
 .content {
@@ -89,8 +90,8 @@ export default {
       font-size: 12px;
       color: #787878;
     }
-    .icon {
-      line-height: 45px;
+    .imgicon {
+      margin-top: 5px;
       text-align: center;
     }
     .img {

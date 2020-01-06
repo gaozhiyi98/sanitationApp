@@ -3,7 +3,13 @@
     <Header title="违规上传" back text="提交" @clickRight="submitadd"></Header>
     <div class="content">
       <div class="title">上传图片：</div>
-      <van-uploader preview-size="173px" v-model="fileList" :max-count="1" :after-read="afterRead" />
+      <van-uploader
+        preview-size="173px"
+        v-model="fileList"
+        capture="camera"
+        :max-count="1"
+        :after-read="afterRead"
+      />
     </div>
     <div class="content">
       <div class="title">违规地点：</div>
@@ -43,7 +49,8 @@ export default {
         imgfile: ""
       },
       fileList: [],
-      location: null
+      location: null,
+      submitstatus: true
     };
   },
   methods: {
@@ -59,18 +66,37 @@ export default {
       });
     },
     submitadd() {
-      console.log(this.addmsg);
-      this.$http.post("check/uploadImage", this.addmsg).then(res => {
-        if (res.status === 1) {
-          this.$toast.success({
-            message: "上传成功",
-            duration: 1000
+      if (
+        this.addmsg.param1 != "" &&
+        this.addmsg.param2 != "" &&
+        this.addmsg.imgfile != ""
+      ) {
+        if (this.submitstatus) {
+          this.submitstatus = false;
+          this.$http.post("check/uploadImage", this.addmsg).then(res => {
+            if (res.status === 1) {
+              this.$toast.success({
+                message: "上传成功",
+                duration: 1000
+              });
+              setTimeout(() => {
+                this.$router.go(-1);
+              }, 1000);
+            } else {
+              this.submitstatus = true;
+              this.$toast.fail({
+                message: "上传失败",
+                duration: 1000
+              });
+            }
           });
-          setTimeout(() => {
-            this.$router.go(-1);
-          }, 1000);
         }
-      });
+      } else {
+        this.$toast.fail({
+          message: "请补全违规信息",
+          duration: 1000
+        });
+      }
     }
     // getCity() {
     //   let _this = this;

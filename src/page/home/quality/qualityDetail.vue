@@ -42,6 +42,14 @@
     <van-popup class="popup" v-model="showpopup">
       <img :src="previewsrc" />
     </van-popup>
+
+    <van-button
+      v-if="detail.result != '已处理'"
+      class="btn"
+      type="info"
+      size="large"
+      @click="goDeal()"
+    >处理</van-button>
   </div>
 </template>
 
@@ -60,7 +68,6 @@ export default {
   },
   methods: {
     getDetail() {
-      console.log(this.$route.params.sid);
       this.$http
         .post("appSafeQuality/getQualityInformationBySid", {
           sid: this.$route.params.sid
@@ -72,10 +79,20 @@ export default {
     showimgPreview(src) {
       this.previewsrc = src;
       this.showpopup = !this.showpopup;
+    },
+    // 处理跳转
+    goDeal() {
+      this.$router.push({
+        name: "qualityDeal",
+        params: this.$route.params.sid
+      });
     }
   },
   created() {
     this.getDetail();
+  },
+  mounted() {
+    this.$route.params.sid ? "" : this.$router.go(-1);
   }
 };
 </script>
@@ -104,7 +121,13 @@ export default {
 .popup {
   img {
     width: 326px;
-    height: 303px;
+    height: 100%;
+    vertical-align: bottom;
   }
+}
+
+.btn {
+  position: fixed;
+  bottom: 0;
 }
 </style>

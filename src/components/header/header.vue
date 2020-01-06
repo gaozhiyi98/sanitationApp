@@ -2,6 +2,7 @@
   <van-nav-bar
     class="headerBox"
     :title="title"
+    :border="false"
     :left-arrow="back"
     :right-text="text"
     @click-left="goBack"

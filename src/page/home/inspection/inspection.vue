@@ -22,7 +22,7 @@
     <div class="footertext">没有更多内容了</div>
 
     <van-popup class="popup" v-model="showpopup">
-      <img :src="previewsrc"/>
+      <img :src="previewsrc" />
     </van-popup>
 
     <!-- 上传按钮 -->
@@ -102,7 +102,8 @@ export default {
     padding: 5px;
     img {
       display: flex;
-      width: 100%;
+      width: 162px;
+      height: 104px;
     }
   }
 }
@@ -166,9 +167,12 @@ export default {
 }
 
 .popup {
+  height: 304px;
+  width: 326px;
+  overflow: hidden;
   img {
-    width: 326px;
-    height: 303px;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

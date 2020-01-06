@@ -1,9 +1,9 @@
 <template>
   <div>
     <Header title="检测更新" back></Header>
-    <div class="content">系统版本：V1.0.0</div>
+    <div class="content">系统版本：V{{ version }}</div>
     <div class="btn">
-      <van-button v-if="update" round type="info">立即更新</van-button>
+      <van-button v-if="update" round type="info" @click="getUpdate">立即更新</van-button>
       <van-button v-else round disabled type="info">暂无更新</van-button>
     </div>
   </div>
@@ -17,8 +17,28 @@ export default {
   },
   data() {
     return {
-      update: true
+      update: true,
+      version: "1.0.0"
     };
+  },
+  methods: {
+    detectUpdate() {
+      this.$http
+        .post("update/updateApk", { versionNumber: this.version })
+        .then(res => {
+          if (res.status === 1) {
+            this.update = true;
+          } else if (res.status === 0) {
+            this.update = false;
+          }
+        });
+    },
+    getUpdate() {
+      location.href = this.$http.defaults.baseURL + "H5FAEA568.apk";
+    }
+  },
+  created() {
+    this.detectUpdate();
   }
 };
 </script>

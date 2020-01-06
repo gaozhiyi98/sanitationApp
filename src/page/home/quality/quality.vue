@@ -4,27 +4,22 @@
     <Header title="质量安全" back></Header>
     <!-- 列表 -->
     <div class="list">
-      <van-row class="item" v-for="item in list" :key="item.sid">
+      <van-row class="item" v-for="item in list" :key="item.sid" @click="goDetail(item.sid)">
         <van-col span="14">
-          <div class="name">{{ item.time }} {{ item.charge }} {{ item.job }}</div>
+          <div class="name">
+            {{ item.time }} {{ item.charge }}
+            <span class="job">{{ item.job }}</span>
+          </div>
           <div class="detail">{{ item.problemdesc }}</div>
         </van-col>
-        <van-col span="10" class="icon">
-          <van-row type="flex" justify="space-around" class="btnbox">
-            <van-col span="12">
-              <van-button class="btn" round plain type="info" @click="goDetail(item.sid)">详情</van-button>
-            </van-col>
-            <van-col span="12">
-              <van-button
-                v-if="item.result === '未处理'"
-                class="btn"
-                round
-                type="info"
-                @click="goDeal(item.sid)"
-              >处理</van-button>
-              <van-button v-else disabled class="btn" round type="info">已处理</van-button>
-            </van-col>
-          </van-row>
+        <van-col span="10" class="right">
+          <div class="icon">
+            <van-icon name="ellipsis" />
+          </div>
+          <div>
+            <div v-if="item.result === '未处理'" style="color:red;">{{ item.result }}</div>
+            <div v-else style="color:green;">{{ item.result }}</div>
+          </div>
         </van-col>
       </van-row>
     </div>
@@ -46,10 +41,6 @@ export default {
     // 详情跳转
     goDetail(sid) {
       this.$router.push({ name: "qualityDetail", params: { sid } });
-    },
-    // 处理跳转
-    goDeal(sid) {
-      this.$router.push({ name: "qualityDeal", params: { sid } });
     },
     getList() {
       this.$http.get("safeQuality/safeQualityCriteriaQuery").then(res => {
@@ -74,18 +65,28 @@ export default {
     .name {
       font-size: 14px;
       color: #323232;
+      .job {
+        padding: 5px;
+        background: rgba(234, 245, 255, 1);
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(66, 155, 245, 1);
+        line-height: 15px;
+      }
     }
     .detail {
       font-size: 12px;
       color: #787878;
     }
-    .btnbox {
-      text-align: center;
-      margin-top: 20px;
-      .btn {
-        font-size: 12px;
-        height: 30px;
-        line-height: 30px;
+    .right {
+      text-align: right;
+      padding-right: 20px;
+      .icon {
+        font-size: 16px;
+        i {
+          line-height: 28px;
+        }
       }
     }
   }

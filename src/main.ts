@@ -8,6 +8,7 @@ import "./router/permission.js";
 
 // 引入字体图标库
 import './assets/icons/iconfont.css'
+import './assets/icons/iconfont.js'
 
 // 引入qs处理数据
 import qs from "qs";
@@ -32,7 +33,9 @@ Axios.interceptors.response.use(function (res) {
   return res.data
 });
 Vue.prototype.$http = Axios
+
 // Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
+// Axios.defaults.baseURL = 'http://192.168.8.109:8888/' // 路路
 Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
 
 // 引入vant组件库
