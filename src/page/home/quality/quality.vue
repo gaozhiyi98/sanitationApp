@@ -13,7 +13,7 @@
           <div class="detail">{{ item.problemdesc }}</div>
         </van-col>
         <van-col span="10" class="right">
-          <div class="icon">
+          <div style="righticon">
             <van-icon name="ellipsis" />
           </div>
           <div>
@@ -82,11 +82,11 @@ export default {
     .right {
       text-align: right;
       padding-right: 20px;
-      .icon {
+      .righticon {
         font-size: 16px;
-        i {
-          line-height: 28px;
-        }
+      }
+      i {
+        line-height: 28px;
       }
     }
   }

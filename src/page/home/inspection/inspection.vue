@@ -1,6 +1,6 @@
 <template>
   <!-- 巡检平台 -->
-  <div>
+  <div class="bgc">
     <Header title="巡检平台" back></Header>
     <!-- 轮播图 -->
     <van-swipe :autoplay="3000" indicator-color="white" class="swipe">
@@ -27,7 +27,9 @@
 
     <!-- 上传按钮 -->
     <button class="addbtn" @click="goAdd">
-      <van-icon name="photograph" />
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#iconins_icon_t_picture" />
+      </svg>
       <div>拍照上传</div>
     </button>
   </div>
@@ -81,13 +83,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bgc {
+  background-color: #f5f7fa;
+}
+
 .swipe {
-  height: 225px;
+  height: 197px;
   img {
     width: 100%;
     height: 100%;
   }
-  border-bottom: 5px solid #ccc;
 }
 
 .item {
@@ -96,10 +101,12 @@ export default {
   li {
     box-sizing: border-box;
     float: left;
-    width: 170px;
-    border: 1px solid #d2d2d2;
-    margin: 5px;
+    width: 48%;
+    margin-left: 5px;
+    margin-bottom: 5px;
     padding: 5px;
+    background-color: #fff;
+    border-radius: 8px;
     img {
       display: flex;
       width: 162px;
@@ -113,7 +120,6 @@ export default {
   line-height: 37px;
   font-size: 14px;
   padding-left: 10px;
-  border-bottom: 2px solid #ccc;
 }
 
 .addbtn {
@@ -122,11 +128,11 @@ export default {
   bottom: 27px;
   width: 70px;
   height: 70px;
-  background-color: #ff931b;
+  background-color: #429af0;
   border: 2px solid #fff;
   border-radius: 50px;
-  i {
-    color: #fff;
+  .icon {
+    font-size: 25px;
   }
   div {
     font-size: 12px;

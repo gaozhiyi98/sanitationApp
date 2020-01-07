@@ -340,6 +340,13 @@
       "font_class": "data_icon6",
       "unicode": "e619",
       "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "12697534",
+      "name": "ins_icon_t_picture",
+      "font_class": "ins_icon_t_picture",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
     }
   ]
 }

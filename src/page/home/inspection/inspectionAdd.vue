@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header title="违规上传" back text="提交" @clickRight="submitadd"></Header>
+    <Header title="违规上传" back></Header>
     <div class="content">
       <div class="title">上传图片：</div>
       <van-uploader
-        preview-size="173px"
+        preview-size="100%"
         v-model="fileList"
         capture="camera"
         :max-count="1"
@@ -30,6 +30,10 @@
           placeholder="请输入问题备注"
         />
       </van-cell-group>
+    </div>
+
+    <div class="footer">
+      <van-button type="info" size="large" @click="submitadd">提交</van-button>
     </div>
   </div>
 </template>
@@ -98,64 +102,30 @@ export default {
         });
       }
     }
-    // getCity() {
-    //   let _this = this;
-    //   var geolocation = new BMap.Geolocation();
-    //   var geolocation = new BMap.Geolocation();
-    //   geolocation.getCurrentPosition(function(r) {
-    //     if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-    //       var mk = new BMap.Marker(r.point);
-    //       map.addOverlay(mk);
-    //       map.panTo(r.point);
-    //       let test = r.point.lng + "," + r.point.lat;
-    //       this.value = test;
-    //       // alert("您的位置：" + r.point.lng + "," + r.point.lat);
-    //       console.log(r.point.lng + "," + r.point.lat);
-    //     } else {
-    //       switch (this.getStatus()) {
-    //         case 2:
-    //           alert("位置结果未知 获取位置失败.");
-    //           break;
-    //         case 3:
-    //           alert("导航结果未知 获取位置失败..");
-    //           break;
-    //         case 4:
-    //           alert("非法密钥 获取位置失败.");
-    //           break;
-    //         case 5:
-    //           alert("对不起,非法请求位置  获取位置失败.");
-    //           break;
-    //         case 6:
-    //           alert("对不起,当前 没有权限 获取位置失败.");
-    //           break;
-    //         case 7:
-    //           alert("对不起,服务不可用 获取位置失败.");
-    //           break;
-    //         case 8:
-    //           alert("对不起,请求超时 获取位置失败.");
-    //           break;
-    //       }
-    //     }
-    //   });
-    // }
   },
-  mounted() {
-    // this.getCity();
-  }
+  mounted() {}
 };
 </script>
 
 <style lang="scss" scoped>
 .content {
   padding: 15px;
-  border-bottom: 1px solid #d2d2d2;
   .textarea {
-    border: 1px solid #d2d2d2;
     border-radius: 5px;
   }
   .title {
     font-size: 14px;
     margin-bottom: 15px;
   }
+  .van-uploader {
+    width: 335px;
+    height: 188px;
+  }
+}
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 </style>

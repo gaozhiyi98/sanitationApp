@@ -5,11 +5,11 @@
       <div class="onebox">
         <div class="title">当日考勤统计</div>
         <div class="sum">
-          <div class="num">123</div>
-          <div class="text">应出勤</div>
+          <div class="num">{{ msg.day.all.number }}</div>
+          <div class="text">{{ msg.day.all.state }}</div>
         </div>
         <van-grid class="bgi" :column-num="3" :border="false">
-          <van-grid-item class="top" v-for="(item, i) in msg.day" :key="i">
+          <van-grid-item class="top" v-for="(item, i) in msg.day.data" :key="i">
             <van-row>
               <div class="littledata">{{ item.number }}</div>
               <div class="littletitle">{{ item.state }}</div>
@@ -45,7 +45,10 @@ export default {
   data() {
     return {
       msg: {
-        day: {},
+        day: {
+          all: {},
+          data: []
+        },
         warning: {}
       }
     };
@@ -53,11 +56,10 @@ export default {
   methods: {
     getDay() {
       this.$http.get("check/getDataTotal").then(res => {
-        console.log(res.data);
-        this.msg.day = res.data;
+        console.log(res.all);
+        this.msg.day = res;
       });
       this.$http.get("check/getWarningTotal").then(res => {
-        console.log(res.data);
         this.msg.warning = res.data;
       });
     }

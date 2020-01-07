@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="header">
-      <div>欢迎登陆</div>
-      <div>智慧环卫综合管理平台</div>
+      <div class="title">欢迎登陆</div>
+      <div class="name">智慧环卫综合管理平台</div>
     </div>
     <div class="content">
       <van-cell-group>
@@ -10,16 +10,15 @@
           <span slot="left-icon" class="iconfont iconshoujihao"></span>
         </van-field>
         <van-field v-model="usermsg.code" center clearable left-icon placeholder="请输入短信验证码">
-          <span slot="left-icon" class="iconfont iconyanzhengma
-"></span>
+          <span slot="left-icon" class="iconfont iconyanzhengma"></span>
           <van-button
             slot="button"
             size="small"
-            type="primary"
+            type="default"
             v-if="codeBtn"
             @click="getCode"
           >发送验证码</van-button>
-          <van-button slot="button" size="small" disabled type="primary" v-else>{{ this.codeMit }}秒</van-button>
+          <van-button slot="button" size="small" disabled type="default" v-else>{{ this.codeMit }}秒</van-button>
         </van-field>
       </van-cell-group>
       <div class="login">
@@ -27,7 +26,8 @@
       </div>
     </div>
     <div class="footer">
-      <span class="iconfont iconyouchenghuanweigongsi"></span>东营区油城环卫有限公司
+      <img src="@/assets/image/组 2.png" alt />
+      东营区油城环卫有限公司
     </div>
   </div>
 </template>
@@ -94,19 +94,27 @@ export default {
 <style lang="scss" scoped>
 .header {
   padding: 20px 40px;
-  font-size: 28px;
-  color: #5190fe;
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .name {
+    font-size: 18px;
+  }
 }
 
 .content {
   padding: 0 28px;
+  button {
+    border: none;
+  }
   .login {
     width: 100%;
     margin-top: 40px;
     text-align: center;
     button {
       width: 100%;
-      border-radius: 30px;
+      background-color: #4ea4f4;
     }
   }
 }
@@ -117,5 +125,8 @@ export default {
   width: 100%;
   font-size: 15px;
   text-align: center;
+  img {
+    width: 100%;
+  }
 }
 </style>

@@ -3,7 +3,12 @@
   <div>
     <Header class="headerBox" title="物料采购" back></Header>
     <div class="list">
-      <van-row class="item" v-for="item in list" :key="item.sid" @click="goDetail(item.applicantdate)">
+      <van-row
+        class="item"
+        v-for="item in list"
+        :key="item.sid"
+        @click="goDetail(item.applicantdate)"
+      >
         <van-col span="14">
           <div class="name">
             {{ item.applicantperson }}
@@ -12,7 +17,7 @@
           <div class="detail">申请时间：{{ item.applicantdate }}</div>
         </van-col>
         <van-col span="10" class="right">
-          <div class="icon">
+          <div>
             <van-icon name="ellipsis" />
           </div>
           <div>
@@ -124,11 +129,9 @@ export default {
     .right {
       text-align: right;
       padding-right: 20px;
-      .icon {
-        font-size: 16px;
-        i {
-          line-height: 28px;
-        }
+      font-size: 16px;
+      i {
+        line-height: 28px;
       }
     }
   }

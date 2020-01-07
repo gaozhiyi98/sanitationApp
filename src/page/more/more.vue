@@ -69,14 +69,24 @@ export default {
   },
   methods: {
     signOut() {
-      localStorage.removeItem("usermsg");
-      this.$toast.success({
-        message: "退出成功",
-        duration: 1000
-      });
-      setTimeout(() => {
-        this.$router.push({ name: "login" });
-      }, 1000);
+      this.$dialog
+        .confirm({
+          closeOnClickOverlay: true,
+          message: "您是否确认退出该用户"
+        })
+        .then(() => {
+          localStorage.removeItem("usermsg");
+          this.$toast.success({
+            message: "退出成功",
+            duration: 1000
+          });
+          setTimeout(() => {
+            this.$router.push({ name: "login" });
+          }, 1000);
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     clean() {
       this.$dialog
