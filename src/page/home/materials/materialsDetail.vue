@@ -23,7 +23,8 @@
         <div v-else style="color: #ffb533;">{{ msg[0].applicantstatus }}</div>
       </van-cell>
       <van-cell title-class="title" title="采购状态：">
-        <van-icon slot="default">{{ msg[0].buystatus }}</van-icon>
+        <div :style="{color: (msg[0].buystatus === '已发放' ? '#429AF0' : '')}">{{ msg[0].buystatus }}</div>
+        <div></div>
       </van-cell>
       <van-cell title-class="title" title="备注：">
         <van-icon class="text" style="color: #404141;" slot="default">{{ msg[0].shop }}</van-icon>
@@ -43,31 +44,30 @@
           <van-cell title="金额" :value="item.materielmoney" />
         </van-collapse-item>
       </van-collapse>
-
-      <van-row
-        v-if="msg[0].applicantstatus === '已审批' && msg[0].buystatus === '待发放'"
-        class="footer"
-        type="flex"
-        justify="space-around"
-      >
-        <van-col span="24">
-          <van-button round class="btn" type="info">物料发放</van-button>
-        </van-col>
-      </van-row>
-      <van-row
-        v-else-if="msg[0].applicantstatus === '待审批'"
-        class="footer"
-        type="flex"
-        justify="space-around"
-      >
-        <van-col span="12">
-          <van-button round class="btn" type="danger">驳回申请</van-button>
-        </van-col>
-        <van-col span="12">
-          <van-button round class="btn" type="info">审批通过</van-button>
-        </van-col>
-      </van-row>
     </div>
+    <van-row
+      v-if="msg[0].applicantstatus === '已审批' && msg[0].buystatus === '待发放'"
+      class="footer"
+      type="flex"
+      justify="space-around"
+    >
+      <van-col span="24">
+        <van-button round class="btn" type="info" @click="approval()">物料发放</van-button>
+      </van-col>
+    </van-row>
+    <van-row
+      v-else-if="msg[0].applicantstatus === '待审批'"
+      class="footer"
+      type="flex"
+      justify="space-around"
+    >
+      <van-col span="12">
+        <van-button round class="btn" type="danger" @click="approval(0)">驳回申请</van-button>
+      </van-col>
+      <van-col span="12">
+        <van-button round class="btn" type="info" @click="approval()">审批通过</van-button>
+      </van-col>
+    </van-row>
   </div>
 </template>
 
@@ -87,10 +87,28 @@ export default {
     getDetail() {
       this.$http
         .post("materiel/detail", {
-          applicantdate: this.$route.params.sid
+          applicantdate: this.$route.params.applicantdate
         })
         .then(res => {
           this.msg = res.data;
+        });
+    },
+    approval(status) {
+      this.$http
+        .post("materiel/changeProgress", {
+          sid: this.$route.params.sid,
+          active: status
+        })
+        .then(res => {
+          if (res.status === "1") {
+            this.$toast.success({
+              message: res.msg,
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+          }
         });
     }
   },
@@ -102,6 +120,7 @@ export default {
 
 <style lang="scss" scoped>
 .content {
+  margin-bottom: 51px;
   .purchase {
     padding: 15px;
     font-size: 16px;
@@ -126,6 +145,7 @@ export default {
   width: 100%;
   text-align: center;
   padding: 10px 0;
+  background-color: #fff;
   .btn {
     height: 29px;
     line-height: 29px;

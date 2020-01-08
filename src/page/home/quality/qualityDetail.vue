@@ -84,15 +84,16 @@ export default {
     goDeal() {
       this.$router.push({
         name: "qualityDeal",
-        params: this.$route.params.sid
+        params: { sid: this.$route.params.sid }
       });
     }
   },
   created() {
-    this.getDetail();
-  },
-  mounted() {
-    this.$route.params.sid ? "" : this.$router.go(-1);
+    if (this.$route.params.sid) {
+      this.getDetail();
+    } else {
+      this.$router.go(-1);
+    }
   }
 };
 </script>

@@ -3,12 +3,7 @@
   <div>
     <Header class="headerBox" title="物料采购" back></Header>
     <div class="list">
-      <van-row
-        class="item"
-        v-for="item in list"
-        :key="item.sid"
-        @click="goDetail(item.applicantdate)"
-      >
+      <van-row class="item" v-for="item in list" :key="item.sid" @click="goDetail(item)">
         <van-col span="14">
           <div class="name">
             {{ item.applicantperson }}
@@ -21,17 +16,22 @@
             <van-icon name="ellipsis" />
           </div>
           <div>
-            <div
-              class="status"
-              style="color: #f66134;"
-              v-if="item.applicantstatus === '待审批'"
-            >{{ item.applicantstatus }}</div>
-            <div
-              class="status"
-              style="color: #4eb14e"
-              v-else-if="item.applicantstatus === '已审批'"
-            >{{ item.applicantstatus }}</div>
-            <div class="status" style="color: #ffb533" v-else>{{ item.applicantstatus }}</div>
+            <div v-if="item.buystatus === '----' || item.buystatus === '待发放'">
+              <div
+                class="status"
+                style="color: #FF3636;"
+                v-if="item.applicantstatus === '待审批'"
+              >{{ item.applicantstatus }}</div>
+              <div
+                class="status"
+                style="color: #4eb14e"
+                v-else-if="item.applicantstatus === '已审批'"
+              >{{ item.applicantstatus }}</div>
+              <div class="status" style="color: #ffb533" v-else>{{ item.applicantstatus }}</div>
+            </div>
+            <div v-else>
+              <div style="color: #429AF0;" class="status">已发放</div>
+            </div>
           </div>
         </van-col>
       </van-row>
@@ -56,8 +56,8 @@ export default {
         this.list = res.data;
       });
     },
-    goDetail(sid) {
-      this.$router.push({ name: "materialsDetail", params: { sid } });
+    goDetail(item) {
+      this.$router.push({ name: "materialsDetail", params: item });
     }
   },
   created() {

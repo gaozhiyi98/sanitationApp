@@ -65,6 +65,8 @@ export default {
   },
   created() {
     this.msg.sid = this.$route.params.sid;
+    console.log(this.$route.params);
+    
   }
 };
 </script>
