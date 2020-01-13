@@ -14,20 +14,20 @@
     <div class="content">
       <div class="title">违规地点：</div>
       <van-cell-group>
-        <van-field v-model="addmsg.param1" placeholder="请输入当前位置">
+        <van-field v-model="addmsg.addr" placeholder="请输入当前位置">
           <van-button slot="button" size="small" plain type="info" @click="getAddress">获取当前位置</van-button>
         </van-field>
       </van-cell-group>
     </div>
     <div class="content">
-      <div class="title">问题备注：</div>
+      <div class="title">问题详情：</div>
       <van-cell-group>
         <van-field
           class="textarea"
           type="textarea"
           :autosize="{maxHeight: 200, minHeight: 200}"
-          v-model="addmsg.param2"
-          placeholder="请输入问题备注"
+          v-model="addmsg.detail"
+          placeholder="请输入问题详情"
         />
       </van-cell-group>
     </div>
@@ -48,9 +48,9 @@ export default {
   data() {
     return {
       addmsg: {
-        param1: "",
-        param2: "",
-        imgfile: ""
+        addr: "",
+        detail: "",
+        pic1path: ""
       },
       fileList: [],
       location: null,
@@ -60,20 +60,19 @@ export default {
   methods: {
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
-      console.log(file);
-      this.addmsg.imgfile = file.content;
+      this.addmsg.pic1path = file.content;
     },
     getAddress() {
       getCurrentCityName().then(city => {
         console.log(city); //顺利的话能在控制台打印出当前城市
-        this.addmsg.param1 = city;
+        this.addmsg.addr = city;
       });
     },
     submitadd() {
       if (
-        this.addmsg.param1 != "" &&
-        this.addmsg.param2 != "" &&
-        this.addmsg.imgfile != ""
+        this.addmsg.addr != "" &&
+        this.addmsg.detail != "" &&
+        this.addmsg.pic1path != ""
       ) {
         if (this.submitstatus) {
           this.submitstatus = false;

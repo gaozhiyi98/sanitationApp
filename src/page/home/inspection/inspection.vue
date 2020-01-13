@@ -13,9 +13,9 @@
     <!-- 图片列表 -->
     <ul class="item">
       <li v-for="(item, index) in list" :key="index">
-        <img :src="item.pictureurl" @click="showimgPreview(item.pictureurl)" />
-        <div class="van-ellipsis">{{ item.param3 }}</div>
-        <div class="van-ellipsis">{{ item.param1 }}</div>
+        <img :src="item.pic1path" @click="showimgPreview(item.pic1path)" />
+        <div class="van-ellipsis">{{ item.logtime }}</div>
+        <div class="van-ellipsis">{{ item.addr }}</div>
       </li>
     </ul>
 
@@ -58,12 +58,6 @@ export default {
     getList() {
       this.$http.get("check/getPictureUrl").then(res => {
         this.list = res.data;
-      });
-    },
-    submitmsg() {
-      console.log(this.data);
-      this.$http.post("check/uploadImage", this.data).then(res => {
-        console.log(res);
       });
     },
     goAdd() {
