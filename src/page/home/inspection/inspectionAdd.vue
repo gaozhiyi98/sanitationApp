@@ -32,6 +32,8 @@
       </van-cell-group>
     </div>
 
+    <div>{{ msg }}</div>
+
     <div class="footer">
       <van-button type="info" size="large" @click="submitadd">提交</van-button>
     </div>
@@ -54,7 +56,8 @@ export default {
       },
       fileList: [],
       location: null,
-      submitstatus: true
+      submitstatus: true,
+      msg: ""
     };
   },
   methods: {
@@ -77,6 +80,7 @@ export default {
         if (this.submitstatus) {
           this.submitstatus = false;
           this.$http.post("check/uploadImage", this.addmsg).then(res => {
+            this.msg = res;
             if (res.status === 1) {
               this.$toast.success({
                 message: "上传成功",

@@ -75,8 +75,8 @@ export default {
   background-color: #f5f7fa;
   padding: 5px;
   .title {
-    height: 53px;
-    line-height: 53px;
+    height: 50px;
+    line-height: 50px;
     font-size: 18px;
   }
   .sum {

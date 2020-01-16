@@ -2,16 +2,16 @@
   <div>
     <van-nav-bar title="智慧环卫综合管理平台" :border="false" class="navbar" />
     <img class="bgi" src="@/assets/image/home_bg.png" />
-    <van-grid class="box" :border="false" :column-num="3">
-      <van-grid-item to="/message">
+    <van-grid class="box" :border="false" :column-num="2">
+      <!-- <van-grid-item to="/message">
         <img class="navimg" src="@/assets/image/home_ icon1.png" />我的消息
-      </van-grid-item>
+      </van-grid-item> -->
       <van-grid-item to="/showdata">
         <img class="navimg" src="@/assets/image/home_ icon2.png" />数据展示
       </van-grid-item>
-      <van-grid-item to="/monitor">
+      <!-- <van-grid-item to="/monitor">
         <img class="navimg" src="@/assets/image/home_ icon3.png" />道路监控
-      </van-grid-item>
+      </van-grid-item> -->
       <van-grid-item to="/inspection">
         <img class="navimg" src="@/assets/image/home_ icon4.png" />巡检平台
       </van-grid-item>
