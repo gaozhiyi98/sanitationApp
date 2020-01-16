@@ -7,12 +7,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   components: {}
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  // docmHeight: number = 0; //默认屏幕高度
+  // showHeight: number = 0; //实时屏幕高度
+  // hidshow: boolean = true; //显示或者隐藏footer,
+  // isResize: boolean = false; //默认屏幕高度是否已获取
+
+  // mount(): void {
+  //   window.onresize = () => {
+  //     return (() => {
+  //       if (!this.isResize) {
+  //         // 默认屏幕高度
+  //         this.docmHeight = document.documentElement.clientHeight;
+  //         this.isResize = true;
+  //       }
+  //       // 实时屏幕高度
+  //       this.showHeight = document.body.clientHeight;
+  //     })();
+  //   };
+  // }
+
+  // @Watch("showHeight")
+  // function(): void {
+  //   if (this.docmHeight > this.showHeight) {
+  //     this.hidshow = false;
+  //   } else {
+  //     this.hidshow = true;
+  //   }
+  // }
+}
 </script>
 
 

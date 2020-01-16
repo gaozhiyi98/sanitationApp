@@ -20,6 +20,14 @@
       </van-cell-group>
     </div>
     <div class="content">
+      <div class="title">项目部：</div>
+      <van-field v-model="addmsg.param2" placeholder="请选择项目部" @focus="showDepartPicker"></van-field>
+    </div>
+    <div class="content">
+      <div class="title">处罚分值：</div>
+      <van-field v-model="addmsg.score" placeholder="请选择处罚分值" @focus="showScorePicker"></van-field>
+    </div>
+    <div class="content">
       <div class="title">问题详情：</div>
       <van-cell-group>
         <van-field
@@ -32,9 +40,27 @@
       </van-cell-group>
     </div>
 
-    <div>{{ msg }}</div>
+    <van-popup v-model="showPicker" position="bottom">
+      <van-picker
+        show-toolbar
+        title="项目部选择"
+        :columns="departList"
+        @confirm="onChange"
+        @cancel="showDepartPicker"
+      />
+    </van-popup>
 
-    <div class="footer">
+    <van-popup v-model="showSPicker" position="bottom">
+      <van-picker
+        show-toolbar
+        title="处罚分值选择"
+        :columns="[0.5, 2, 3, 5, 10, 20]"
+        @confirm="onScoreChange"
+        @cancel="showScorePicker"
+      />
+    </van-popup>
+
+    <div class="footer" v-show="hideshow">
       <van-button type="info" size="large" @click="submitadd">提交</van-button>
     </div>
   </div>
@@ -52,15 +78,44 @@ export default {
       addmsg: {
         addr: "",
         detail: "",
-        pic1path: ""
+        pic1path: "",
+        param2: "",
+        score: ""
       },
       fileList: [],
       location: null,
       submitstatus: true,
-      msg: ""
+      msg: "",
+      showPicker: false,
+      showSPicker: false,
+      departList: [],
+      docmHeight: document.documentElement.clientHeight, //默认屏幕高度
+      showHeight: document.documentElement.clientHeight, //实时屏幕高度
+      hideshow: true //显示或者隐藏footer
     };
   },
   methods: {
+    // 获取部门列表
+    getdepartList() {
+      this.$http.post("hr/sourcedepart/dropDepart").then(res => {
+        // console.log(res);
+        this.departList = res.data;
+      });
+    },
+    showDepartPicker() {
+      this.showPicker = !this.showPicker;
+    },
+    onChange(picker, value, index) {
+      this.addmsg.param2 = picker;
+      this.showDepartPicker();
+    },
+    showScorePicker() {
+      this.showSPicker = !this.showSPicker;
+    },
+    onScoreChange(picker, value, index) {
+      this.addmsg.score = picker;
+      this.showScorePicker();
+    },
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
       this.addmsg.pic1path = file.content;
@@ -106,7 +161,25 @@ export default {
       }
     }
   },
-  mounted() {}
+  mounted() {
+    this.getdepartList();
+    // window.onresize监听页面高度的变化
+    window.onresize = () => {
+      return (() => {
+        this.showHeight = document.body.clientHeight;
+      })();
+    };
+  },
+  //监听
+  watch: {
+    showHeight: function() {
+      if (this.docmHeight > this.showHeight) {
+        this.hideshow = false;
+      } else {
+        this.hideshow = true;
+      }
+    }
+  }
 };
 </script>
 

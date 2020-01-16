@@ -18,7 +18,7 @@
       <van-uploader preview-size="100%" v-model="fileList" :max-count="1" :after-read="afterRead" />
     </div>
 
-    <van-button class="btn" type="info" size="large" @click="submit">提交</van-button>
+    <van-button v-show="hideshow" class="btn" type="info" size="large" @click="submit">提交</van-button>
   </div>
 </template>
 
@@ -35,7 +35,10 @@ export default {
         param1: "",
         imgfile: ""
       },
-      fileList: []
+      fileList: [],
+      docmHeight: document.documentElement.clientHeight, //默认屏幕高度
+      showHeight: document.documentElement.clientHeight, //实时屏幕高度
+      hideshow: true //显示或者隐藏footer
     };
   },
   methods: {
@@ -65,8 +68,24 @@ export default {
   },
   created() {
     this.msg.sid = this.$route.params.sid;
-    console.log(this.$route.params);
-    
+  },
+  mounted() {
+    // window.onresize监听页面高度的变化
+    window.onresize = () => {
+      return (() => {
+        this.showHeight = document.body.clientHeight;
+      })();
+    };
+  },
+  //监听
+  watch: {
+    showHeight: function() {
+      if (this.docmHeight > this.showHeight) {
+        this.hideshow = false;
+      } else {
+        this.hideshow = true;
+      }
+    }
   }
 };
 </script>

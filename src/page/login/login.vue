@@ -25,7 +25,7 @@
         <van-button type="info" @click="login">登录</van-button>
       </div>
     </div>
-    <div class="footer">
+    <div class="footer" v-show="hideshow">
       <img src="@/assets/image/组 2.png" alt />
       东营区油城环卫有限公司
     </div>
@@ -41,7 +41,10 @@ export default {
         code: ""
       },
       codeBtn: true,
-      codeMit: 60
+      codeMit: 60,
+      docmHeight: document.documentElement.clientHeight, //默认屏幕高度
+      showHeight: document.documentElement.clientHeight, //实时屏幕高度
+      hideshow: true //显示或者隐藏footer
     };
   },
   methods: {
@@ -86,6 +89,24 @@ export default {
           this.$toast.fail("验证码输入错误");
         }
       });
+    }
+  },
+  mounted() {
+    // window.onresize监听页面高度的变化
+    window.onresize = () => {
+      return (() => {
+        this.showHeight = document.body.clientHeight;
+      })();
+    };
+  },
+  //监听
+  watch: {
+    showHeight: function() {
+      if (this.docmHeight > this.showHeight) {
+        this.hideshow = false;
+      } else {
+        this.hideshow = true;
+      }
     }
   }
 };
