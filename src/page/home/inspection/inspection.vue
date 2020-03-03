@@ -61,7 +61,7 @@ export default {
       });
     },
     goAdd() {
-      this.$router.push({ name: "inspectionAdd" });
+      this.$router.push({ name: "inspectionList" });
     },
     showimgPreview(src) {
       this.previewsrc = src;

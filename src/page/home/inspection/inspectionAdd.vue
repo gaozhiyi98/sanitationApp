@@ -1,43 +1,45 @@
 <template>
   <div>
     <Header title="违规上传" back></Header>
-    <div class="content">
-      <div class="title">上传图片：</div>
-      <van-uploader
-        preview-size="100%"
-        v-model="fileList"
-        capture="camera"
-        :max-count="1"
-        :after-read="afterRead"
-      />
-    </div>
-    <div class="content">
-      <div class="title">违规地点：</div>
-      <van-cell-group>
-        <van-field v-model="addmsg.addr" placeholder="请输入当前位置">
-          <van-button slot="button" size="small" plain type="info" @click="getAddress">获取当前位置</van-button>
-        </van-field>
-      </van-cell-group>
-    </div>
-    <div class="content">
-      <div class="title">项目部：</div>
-      <van-field v-model="addmsg.param2" placeholder="请选择项目部" @focus="showDepartPicker"></van-field>
-    </div>
-    <div class="content">
-      <div class="title">处罚分值：</div>
-      <van-field v-model="addmsg.score" placeholder="请选择处罚分值" @focus="showScorePicker"></van-field>
-    </div>
-    <div class="content">
-      <div class="title">问题详情：</div>
-      <van-cell-group>
-        <van-field
-          class="textarea"
-          type="textarea"
-          :autosize="{maxHeight: 200, minHeight: 200}"
-          v-model="addmsg.detail"
-          placeholder="请输入问题详情"
+    <div class="bigbox">
+      <div class="content">
+        <div class="title">上传图片：</div>
+        <van-uploader
+          preview-size="105"
+          v-model="fileList"
+          :max-count="9"
+          multiple
+          :after-read="afterRead"
         />
-      </van-cell-group>
+      </div>
+      <div class="content">
+        <div class="title">违规地点：</div>
+        <van-cell-group>
+          <van-field v-model="addmsg.address" placeholder="请输入当前位置">
+            <van-button slot="button" size="small" plain type="info" @click="getAddress">获取当前位置</van-button>
+          </van-field>
+        </van-cell-group>
+      </div>
+      <div class="content">
+        <div class="title">项目部：</div>
+        <van-field v-model="addmsg.area" placeholder="请选择项目部" @focus="showDepartPicker"></van-field>
+      </div>
+      <div class="content">
+        <div class="title">处罚分值：</div>
+        <van-field v-model="addmsg.param2" placeholder="请选择处罚分值" @focus="showScorePicker"></van-field>
+      </div>
+      <div class="content">
+        <div class="title">问题详情：</div>
+        <van-cell-group>
+          <van-field
+            class="textarea"
+            type="textarea"
+            :autosize="{maxHeight: 200, minHeight: 200}"
+            v-model="addmsg.problemdesc"
+            placeholder="请输入问题详情"
+          />
+        </van-cell-group>
+      </div>
     </div>
 
     <van-popup v-model="showPicker" position="bottom">
@@ -76,11 +78,11 @@ export default {
   data() {
     return {
       addmsg: {
-        addr: "",
-        detail: "",
-        pic1path: "",
+        address: "",
+        problemdesc: "",
+        area: "",
         param2: "",
-        score: ""
+        questionNo: ""
       },
       fileList: [],
       location: null,
@@ -98,7 +100,6 @@ export default {
     // 获取部门列表
     getdepartList() {
       this.$http.post("hr/sourcedepart/dropDepart").then(res => {
-        // console.log(res);
         this.departList = res.data;
       });
     },
@@ -106,35 +107,41 @@ export default {
       this.showPicker = !this.showPicker;
     },
     onChange(picker, value, index) {
-      this.addmsg.param2 = picker;
+      this.addmsg.area = picker;
       this.showDepartPicker();
     },
     showScorePicker() {
       this.showSPicker = !this.showSPicker;
     },
     onScoreChange(picker, value, index) {
-      this.addmsg.score = picker;
+      this.addmsg.param2 = picker;
       this.showScorePicker();
     },
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
-      this.addmsg.pic1path = file.content;
+      let obj = {
+        questionNo: this.$route.params.problemNumber,
+        imgfile: file.content
+      };
+      this.$http.post("appSafeQuality/handleImgs", obj).then(res => {
+        console.log(res);
+      });
     },
     getAddress() {
-      getCurrentCityName().then(city => {
-        console.log(city); //顺利的话能在控制台打印出当前城市
-        this.addmsg.addr = city;
+      this.$http.get("xy/getPos").then(res => {
+        this.addmsg.address = res.data;
       });
     },
     submitadd() {
       if (
-        this.addmsg.addr != "" &&
-        this.addmsg.detail != "" &&
+        this.addmsg.address != "" &&
+        this.addmsg.problemdesc != "" &&
         this.addmsg.pic1path != ""
       ) {
         if (this.submitstatus) {
           this.submitstatus = false;
-          this.$http.post("check/uploadImage", this.addmsg).then(res => {
+          this.addmsg.questionNo = this.$route.params.problemNumber;
+          this.$http.post("appSafeQuality/preAdd", this.addmsg).then(res => {
             this.msg = res;
             if (res.status === 1) {
               this.$toast.success({
@@ -159,10 +166,26 @@ export default {
           duration: 1000
         });
       }
+    },
+    getMsg() {
+      this.$http
+        .post("appSafeQuality/preGet", {
+          questionNo: this.$route.params.problemNumber
+        })
+        .then(res => {
+          if (res.status != 0) {
+            this.addmsg.area = res.data.area;
+            this.addmsg.problemdesc = res.data.problemdesc;
+            this.addmsg.address = res.data.address;
+            this.fileList = res.data.picture1s;
+            this.addmsg.param2 = res.data.param2;
+          }
+        });
     }
   },
   mounted() {
     this.getdepartList();
+    this.getMsg();
     // window.onresize监听页面高度的变化
     window.onresize = () => {
       return (() => {
@@ -184,6 +207,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bigbox {
+  margin-bottom: 52px;
+}
+
 .content {
   padding: 15px;
   .textarea {
@@ -193,9 +220,20 @@ export default {
     font-size: 14px;
     margin-bottom: 15px;
   }
-  .van-uploader {
-    width: 335px;
-    height: 188px;
+  .problem {
+    height: 30px;
+  }
+  .btn {
+    display: block;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 20px;
+    width: 55px;
+    height: 28px;
+    line-height: 35px;
+    background-color: #429af0ff;
+    border: none;
+    border-radius: 8px;
   }
 }
 

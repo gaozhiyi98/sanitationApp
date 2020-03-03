@@ -35,6 +35,11 @@ const routes = [
     component: () => import('../page/home/inspection/inspection.vue'),
   },
   {
+    path: '/inspectionList',
+    name: 'inspectionList',
+    component: () => import('../page/home/inspection/inspectionList.vue'),
+  },
+  {
     path: '/inspectionAdd',
     name: 'inspectionAdd',
     component: () => import('../page/home/inspection/inspectionAdd.vue'),

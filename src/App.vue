@@ -59,9 +59,6 @@ export default class App extends Vue {
   background-color: rgba(0, 0, 0, 0) !important;
 }
 
-.van-uploader__wrapper {
-  height: 100%;
-}
 
 .icon {
   width: 1em;

@@ -35,7 +35,7 @@ Axios.interceptors.response.use(function (res) {
 Vue.prototype.$http = Axios
 
 // Axios.defaults.baseURL = 'http://192.168.8.126:8080/' // 升龙
-// Axios.defaults.baseURL = 'http://192.168.8.109:8888/' // 路路
+// Axios.defaults.baseURL = 'http://192.168.40.1:8888/' // 路路
 Axios.defaults.baseURL = 'http://118.31.245.183:10500/'
 
 // 引入vant组件库
@@ -44,11 +44,6 @@ import 'vant/lib/index.css'
 import { Lazyload } from 'vant'; // 图片懒加载
 Vue.use(Vant);
 Vue.use(Lazyload);
-
-// 引入element组件库
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
 
 // 引入百度地图
 import BaiduMap from 'vue-baidu-map'
